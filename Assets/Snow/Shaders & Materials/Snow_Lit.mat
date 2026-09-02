@@ -61,6 +61,7 @@ Material:
     - _EnvironmentReflections: 0
     - _Float4: 0
     - _Float6: 0.52
+    - _GroundStrength: 0
     - _MudHeight: 1.17
     - _NoiseScale: 2.4
     - _NoiseStrength: 0.92
@@ -69,7 +70,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 0
-    - _SnowHeight: 1.7
+    - _SnowHeight: 0.6
     - _SpecularHighlights: 0
     - _TessMax: 60
     - _TessMin: 0.1

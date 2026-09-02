@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SnowMaterial: {fileID: 2100000, guid: 67737f8d38500ed49855d963dc6e828b, type: 2}
-  snowHeight: 1.7
+  snowHeight: 0.6
 --- !u!1 &152439176
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,7 +815,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4762814218461680, guid: 8f49b565901da7d4cab7cb0866f79289, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.1
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: 4762814218461680, guid: 8f49b565901da7d4cab7cb0866f79289, type: 3}
       propertyPath: m_LocalPosition.y
@@ -823,7 +823,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4762814218461680, guid: 8f49b565901da7d4cab7cb0866f79289, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 51.4
+      value: -7.1
       objectReference: {fileID: 0}
     - target: {fileID: 4762814218461680, guid: 8f49b565901da7d4cab7cb0866f79289, type: 3}
       propertyPath: m_LocalRotation.w
@@ -886,7 +886,7 @@ PrefabInstance:
     - target: {fileID: 109844321266901624, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Value
-      value: 1.7
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 109844321266901624, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
@@ -906,7 +906,7 @@ PrefabInstance:
     - target: {fileID: 109844321266901624, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.x
-      value: 6.25
+      value: -0.09765625
       objectReference: {fileID: 0}
     - target: {fileID: 109844321266901624, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
@@ -916,7 +916,7 @@ PrefabInstance:
     - target: {fileID: 109844321266901624, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.z
-      value: 52.197266
+      value: -6.201172
       objectReference: {fileID: 0}
     - target: {fileID: 109844321266901624, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
@@ -926,7 +926,7 @@ PrefabInstance:
     - target: {fileID: 460002127075086107, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1500001
+      value: 0.5023438
       objectReference: {fileID: 0}
     - target: {fileID: 460002127075086107, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
@@ -936,7 +936,7 @@ PrefabInstance:
     - target: {fileID: 460002127075086107, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.7972641
+      value: 0.898828
       objectReference: {fileID: 0}
     - target: {fileID: 533241649653991380, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
