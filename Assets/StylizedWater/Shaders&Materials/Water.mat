@@ -1,0 +1,150 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Water
+  m_Shader: {fileID: 4800000, guid: 90ffb92e4cfafdf44ab7e9762f7c0b26, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _RECEIVESHADOWS_OFF
+  - _RECEIVE_SHADOWS_OFF
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: _Float1
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _CausticsTex:
+        m_Texture: {fileID: 2800000, guid: 3e5c24a13de44744c844f2b56ba55513, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DistortionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DistortionTexture:
+        m_Texture: {fileID: 2800000, guid: e8e00800850cad140a12107dc7ad657f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FoamNoiseTex:
+        m_Texture: {fileID: 2800000, guid: 3e5c24a13de44744c844f2b56ba55513, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: e8e00800850cad140a12107dc7ad657f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTexture:
+        m_Texture: {fileID: 2800000, guid: e8e00800850cad140a12107dc7ad657f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReflectionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RippleTex:
+        m_Texture: {fileID: 8400000, guid: 5864b2b05f3a23645b8b46cfcfc01d30, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SnowTrailTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample0:
+        m_Texture: {fileID: 2800000, guid: 3e5c24a13de44744c844f2b56ba55513, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _1: 1
+    - _Alpha: 0.064
+    - _AlphaCutoff: 0.5
+    - _BaseUVScale: 0.78
+    - _BigWave: 0.3
+    - _CamSize: 10
+    - _ColorAreaAdjust: 0.578
+    - _Cutoff: 0.51
+    - _DistortionIntensity: 0.341
+    - _DistortionSpeed: 0.62
+    - _DistortionStrength: 0.42
+    - _EnvironmentReflections: 1
+    - _Float1: 1
+    - _Float10: 0.0646
+    - _Float11: -0.56
+    - _Float12: 0.21
+    - _Float14: 0.17
+    - _Float15: 0
+    - _Float18: 3.09
+    - _Float3: 0.506
+    - _Float6: 0.532
+    - _Float7: 1.11
+    - _Float8: 0.512
+    - _FoamCutoff: 0.922
+    - _FoamSoftness: 0.142
+    - _FoamThickness: 0.07
+    - _FoamWidth: -96.73
+    - _FresneBias: 0.0167
+    - _FresnePower: 3.23
+    - _FresnelAdjust: 1
+    - _FresnelScale: 2.56
+    - _Height: 1
+    - _NoiseScale: 0
+    - _NormalIntensity: 1
+    - _Power: 4.2
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _ReceiveShadows: 0
+    - _RefractMask: 0.05
+    - _RefrctIntensity: 1
+    - _RewriteNormal: 1
+    - _RippleIntense: 0.17
+    - _Scale: 1.25
+    - _ScrollSpeed: 0.486
+    - _SnowTrailIntense: 0.17
+    - _Soft: 0.06
+    - _SpecularHighlights: 1
+    - _UVNoiseStrength: 0.283
+    - _VertHeight: 1
+    - _VertOffsetIntensity: 0
+    - _WaveDetailTiling: 0.527
+    - _WorldUVScale: 1.06
+    - __dirty: 0
+    - _s: 0
+    m_Colors:
+    - _CamPos: {r: -0.06000016, g: 0.49199963, b: 531.95996, a: 0}
+    - _Color0: {r: 0.5176471, g: 0.54509807, b: 0.76470596, a: 0}
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 0}
+    - _DepthColor: {r: 0.15686275, g: 0.7254902, b: 0.9490196, a: 0}
+    - _EdgeColor: {r: 0.15296468, g: 0.3448157, b: 0.77254903, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _MainColor: {r: 0.53144646, g: 0.81820935, b: 1, a: 0}
+    - _Vector0: {r: -0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

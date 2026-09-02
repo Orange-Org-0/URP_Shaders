@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hologram
+  m_Shader: {fileID: 4800000, guid: 6c692fcdec74fdf4082dbc9a279611a0, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 836bc8573b8b9b64680aa1a3ecf230f1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaCutoff: 0.5
+    - _FlickerSpeed: 7
+    - _Float0: 0
+    - _Float01518: 3.65
+    - _Float015365: 0.59
+    - _Float1: 3.5
+    - _Float2: 0
+    - _Float3: 0.5
+    - _Float4: 0.324
+    - _Float5: 0.7
+    - _Float6: 1.44
+    - _Float7: 0.8
+    - _Float718175: 0
+    - _GlitchIntense: 0.0248
+    - _GlitchNoiseScale: 0.3
+    - _GlitchSpeed: 11.4
+    - _GlitchVertOffsetIntense: 1
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
+    - _RimBias: 0.124
+    - _RimPower: 1.86
+    - _RimScale: 2.18
+    - _Scale: 4.7619047
+    - _Scan: -0.09
+    - _ScanColorIntensity: 0.54
+    - _ScanOffsetScale: 0.65
+    - _ScanOffsetSpeed: 0.9
+    - _ScanOffsetWidth: 0.3
+    - _ScanSpeed: 0.3
+    - _ScanVertOffsetIntensity: 0.086
+    - _ScanWidth: 0.18
+    - _inv_Scale: 1
+    m_Colors:
+    - _Color0: {r: 1, g: 0, b: 0, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _InnerColor: {r: 0, g: 0.1666315, b: 1.2669094, a: 0}
+    - _ProjectorPos: {r: 1.11, g: -0.092, b: 0, a: 0}
+    - _RimColor: {r: 0, g: 0.6354024, b: 1.8443025, a: 0}
+    - _ScanColor: {r: 0, g: 2.101823, b: 11.984314, a: 0}
+    - _Vector0: {r: 1, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []

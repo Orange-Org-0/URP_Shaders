@@ -1,0 +1,22 @@
+float result = 0.0f;
+for(int j = 0; j < 10; j++)
+{	
+	float fade = 1.0f - saturate(1.0f * ParticleCrntSize[j] / ParticleFinalSize[j]);
+	float3 newR = normalize(HitPos[j].xyz - OriginWorldPos);
+	//float3 newR = normalize(TestPos - OriginWorldPos);
+	float3 newPos = OriginWorldPos + newR * ShieldRadius;
+	float3 a = newPos - OriginWorldPos;
+	float3 b = WorldPos - OriginWorldPos;
+	float wave = dot(a, b) / (ShieldRadius * ShieldRadius);
+	//wave = acos(wave) - HitWaveTest;
+	wave = acos(wave) - ParticleCrntSize[j];
+	float mask = 1.0f - step(0.001, wave);
+	wave = distance(0, wave) * mask;
+	wave = 1.0f - saturate(wave);
+	wave *= mask;
+	wave = smoothstep(0.3f, 1.05f, wave);	
+	result += wave * fade;
+	
+}
+
+return saturate(result);

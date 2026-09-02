@@ -1,0 +1,22 @@
+float result = 0.0f;
+for(int j = 0; j < 10; j++)
+{	
+	float fade = 1.0f - saturate(1.0f * ParticleCrntSize[j] / ParticleFinalSize[j]);
+	float3 newR = normalize(HitPos[j].xyz - OriginWorldPos);
+	//float3 newR = normalize(TestPos - OriginWorldPos);
+	float3 newPos = OriginWorldPos + newR * ShieldRadius;
+	float3 a = newPos - OriginWorldPos;
+	float3 b = WorldPos - OriginWorldPos;
+	float rim = dot(a, b) / (ShieldRadius * ShieldRadius);
+	//rim = acos(rim) - HitRimTest;
+	rim = acos(rim) - ParticleCrntSize[j];
+	float mask = 1.0f - step(0.001, rim);
+	rim = distance(Noise, rim) * mask;
+	rim = 1.0f - saturate(rim);
+	rim *= mask;
+	rim = smoothstep(0.94f, 1.2f, rim);	
+	result += rim * fade;
+	
+}
+
+return saturate(result);
