@@ -38,6 +38,7 @@ public class InteractiveControl_Snow : MonoBehaviour
         snowController = FindFirstObjectByType<SnowController>();
         lastFramePos = transform.position;
         ApplyPlayerCollisionConstraints();
+        RegisterSnowController();
     }
 
     private void Update()
@@ -48,7 +49,10 @@ public class InteractiveControl_Snow : MonoBehaviour
         }
 
         UpdateSpeed();
-        UpdateVFXParams();
+        if (snowController != null)
+        {
+            snowController.SetPlayerSpeed(currentSpeed);
+        }
     }
 
     private void OnValidate()
@@ -131,17 +135,13 @@ public class InteractiveControl_Snow : MonoBehaviour
 
 
 
-    private void UpdateVFXParams()
+    private void RegisterSnowController()
     {
-        if(SnowTrail == null)
+        if (snowController == null)
         {
-            Debug.LogWarning("SnowTrail VisualEffect is not assigned.");
             return;
         }
 
-        SnowTrail.SetFloat("PlayerSpeed", currentSpeed);
-        SnowTrail.SetVector3("OrthCamPos", trailCam.transform.position);
-        SnowTrail.SetFloat ("OrthCamSize", trailCam.orthographicSize);
-        SnowTrail.SetFloat("SnowHeight", snowController.SnowHeight);
+        snowController.SetReferences(trailCam, SnowTrail);
     }
 }

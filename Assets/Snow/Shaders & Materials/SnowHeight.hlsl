@@ -32,13 +32,15 @@ float CalcHeight(float2 CompTex, float NoiseStrength, float2 Ground, float uvInR
     float height = pow(Snowtrail, 0.2) * Noise * NoiseStrength * 0.1;
     height += (1.0 - Snowtrail);
     
+    height = lerp(height, GroundHeight, GroundHeightStrength);
+    
     height *= uvInRange;
-    height += (1.0 - uvInRange);
+    height += (1.0 - uvInRange);      
     return height;
 }
 
 float CalcSnowHeight(float Height, float SnowHeight)
 {
-    return Height + SnowHeight;
+    return Height * SnowHeight * 0.5;
 }
 

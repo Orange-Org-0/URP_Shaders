@@ -364,9 +364,9 @@ Shader "Snow_Lit"
 				int _PassValue;
 			#endif
 
+			sampler2D _SnowTrailTex;
 			float3 _OrthCamPos;
 			float _OrthCamSize;
-			sampler2D _SnowTrailTex;
 			sampler2D _GroundHeightTex;
 
 
@@ -433,18 +433,24 @@ Shader "Snow_Lit"
 				float3 WorldPos100 = ase_positionWS;
 				float3 localCalcUV100 = CalcUV( OrthCamPos100 , OrthCamSize100 , WorldPos100 );
 				float3 break108 = localCalcUV100;
-				float uvInRange37 = break108.z;
 				float2 appendResult109 = (float2(break108.x , break108.y));
 				float2 uv31 = appendResult109;
-				float clampResult41 = clamp( tex2Dlod( _SnowTrailTex, float4( uv31, 0, 0.0) ).g , 0.0 , 1.0 );
-				float saferPower84 = abs( clampResult41 );
 				float simplePerlin3D65 = snoise( ase_positionWS*_NoiseScale );
 				simplePerlin3D65 = simplePerlin3D65*0.5 + 0.5;
+				float2 appendResult114 = (float2(tex2Dlod( _SnowTrailTex, float4( uv31, 0, 0.0) ).g , simplePerlin3D65));
+				float2 CompTex110 = appendResult114;
+				float NoiseStrength110 = _NoiseStrength;
 				float2 uv_GroundHeightTex = input.texcoord.xy * _GroundHeightTex_ST.xy + _GroundHeightTex_ST.zw;
-				float4 tex2DNode88 = tex2Dlod( _GroundHeightTex, float4( uv_GroundHeightTex, 0, 0.0) );
-				float lerpResult93 = lerp( ( ( 1.0 - clampResult41 ) + ( ( pow( saferPower84 , 0.2 ) *  (-1.0 + ( simplePerlin3D65 - 0.0 ) * ( 1.0 - -1.0 ) / ( 1.0 - 0.0 ) ) ) * _NoiseStrength * 0.1 ) ) , tex2DNode88.r , _GroundStrength);
-				float Height44 = ( ( 1.0 - uvInRange37 ) + ( uvInRange37 * lerpResult93 ) );
-				float4 transform15 = mul(GetWorldToObjectMatrix(),float4( ( float3( 0, 1, 0 ) * ( ( Height44 * _SnowHeight ) * 0.5 ) ) , 0.0 ));
+				float2 appendResult113 = (float2(tex2Dlod( _GroundHeightTex, float4( uv_GroundHeightTex, 0, 0.0) ).r , _GroundStrength));
+				float2 Ground110 = appendResult113;
+				float uvInRange37 = break108.z;
+				float uvInRange110 = uvInRange37;
+				float localCalcHeight110 = CalcHeight( CompTex110 , NoiseStrength110 , Ground110 , uvInRange110 );
+				float Height44 = localCalcHeight110;
+				float Height116 = Height44;
+				float SnowHeight116 = _SnowHeight;
+				float localCalcSnowHeight116 = CalcSnowHeight( Height116 , SnowHeight116 );
+				float4 transform15 = mul(GetWorldToObjectMatrix(),float4( ( float3( 0, 1, 0 ) * localCalcSnowHeight116 ) , 0.0 ));
 				float3 appendResult18 = (float3(transform15.x , transform15.y , transform15.z));
 				
 				output.ase_texcoord6.xy = input.texcoord.xy;
@@ -659,17 +665,20 @@ Shader "Snow_Lit"
 				float3 WorldPos100 = PositionWS;
 				float3 localCalcUV100 = CalcUV( OrthCamPos100 , OrthCamSize100 , WorldPos100 );
 				float3 break108 = localCalcUV100;
-				float uvInRange37 = break108.z;
 				float2 appendResult109 = (float2(break108.x , break108.y));
 				float2 uv31 = appendResult109;
-				float clampResult41 = clamp( tex2D( _SnowTrailTex, uv31 ).g , 0.0 , 1.0 );
-				float saferPower84 = abs( clampResult41 );
 				float simplePerlin3D65 = snoise( PositionWS*_NoiseScale );
 				simplePerlin3D65 = simplePerlin3D65*0.5 + 0.5;
+				float2 appendResult114 = (float2(tex2D( _SnowTrailTex, uv31 ).g , simplePerlin3D65));
+				float2 CompTex110 = appendResult114;
+				float NoiseStrength110 = _NoiseStrength;
 				float2 uv_GroundHeightTex = input.ase_texcoord6.xy * _GroundHeightTex_ST.xy + _GroundHeightTex_ST.zw;
-				float4 tex2DNode88 = tex2D( _GroundHeightTex, uv_GroundHeightTex );
-				float lerpResult93 = lerp( ( ( 1.0 - clampResult41 ) + ( ( pow( saferPower84 , 0.2 ) *  (-1.0 + ( simplePerlin3D65 - 0.0 ) * ( 1.0 - -1.0 ) / ( 1.0 - 0.0 ) ) ) * _NoiseStrength * 0.1 ) ) , tex2DNode88.r , _GroundStrength);
-				float Height44 = ( ( 1.0 - uvInRange37 ) + ( uvInRange37 * lerpResult93 ) );
+				float2 appendResult113 = (float2(tex2D( _GroundHeightTex, uv_GroundHeightTex ).r , _GroundStrength));
+				float2 Ground110 = appendResult113;
+				float uvInRange37 = break108.z;
+				float uvInRange110 = uvInRange37;
+				float localCalcHeight110 = CalcHeight( CompTex110 , NoiseStrength110 , Ground110 , uvInRange110 );
+				float Height44 = localCalcHeight110;
 				float saferPower54 = abs( Height44 );
 				float saferPower90 = abs( _MudHeight );
 				float3 lerpResult48 = lerp( _MudColor.rgb , _SnowColor.rgb , pow( saferPower54 , pow( saferPower90 , 3.0 ) ));
@@ -1062,9 +1071,9 @@ Shader "Snow_Lit"
 				int _PassValue;
 			#endif
 
+			sampler2D _SnowTrailTex;
 			float3 _OrthCamPos;
 			float _OrthCamSize;
-			sampler2D _SnowTrailTex;
 			sampler2D _GroundHeightTex;
 
 
@@ -1134,18 +1143,24 @@ Shader "Snow_Lit"
 				float3 WorldPos100 = ase_positionWS;
 				float3 localCalcUV100 = CalcUV( OrthCamPos100 , OrthCamSize100 , WorldPos100 );
 				float3 break108 = localCalcUV100;
-				float uvInRange37 = break108.z;
 				float2 appendResult109 = (float2(break108.x , break108.y));
 				float2 uv31 = appendResult109;
-				float clampResult41 = clamp( tex2Dlod( _SnowTrailTex, float4( uv31, 0, 0.0) ).g , 0.0 , 1.0 );
-				float saferPower84 = abs( clampResult41 );
 				float simplePerlin3D65 = snoise( ase_positionWS*_NoiseScale );
 				simplePerlin3D65 = simplePerlin3D65*0.5 + 0.5;
+				float2 appendResult114 = (float2(tex2Dlod( _SnowTrailTex, float4( uv31, 0, 0.0) ).g , simplePerlin3D65));
+				float2 CompTex110 = appendResult114;
+				float NoiseStrength110 = _NoiseStrength;
 				float2 uv_GroundHeightTex = input.ase_texcoord.xy * _GroundHeightTex_ST.xy + _GroundHeightTex_ST.zw;
-				float4 tex2DNode88 = tex2Dlod( _GroundHeightTex, float4( uv_GroundHeightTex, 0, 0.0) );
-				float lerpResult93 = lerp( ( ( 1.0 - clampResult41 ) + ( ( pow( saferPower84 , 0.2 ) *  (-1.0 + ( simplePerlin3D65 - 0.0 ) * ( 1.0 - -1.0 ) / ( 1.0 - 0.0 ) ) ) * _NoiseStrength * 0.1 ) ) , tex2DNode88.r , _GroundStrength);
-				float Height44 = ( ( 1.0 - uvInRange37 ) + ( uvInRange37 * lerpResult93 ) );
-				float4 transform15 = mul(GetWorldToObjectMatrix(),float4( ( float3( 0, 1, 0 ) * ( ( Height44 * _SnowHeight ) * 0.5 ) ) , 0.0 ));
+				float2 appendResult113 = (float2(tex2Dlod( _GroundHeightTex, float4( uv_GroundHeightTex, 0, 0.0) ).r , _GroundStrength));
+				float2 Ground110 = appendResult113;
+				float uvInRange37 = break108.z;
+				float uvInRange110 = uvInRange37;
+				float localCalcHeight110 = CalcHeight( CompTex110 , NoiseStrength110 , Ground110 , uvInRange110 );
+				float Height44 = localCalcHeight110;
+				float Height116 = Height44;
+				float SnowHeight116 = _SnowHeight;
+				float localCalcSnowHeight116 = CalcSnowHeight( Height116 , SnowHeight116 );
+				float4 transform15 = mul(GetWorldToObjectMatrix(),float4( ( float3( 0, 1, 0 ) * localCalcSnowHeight116 ) , 0.0 ));
 				float3 appendResult18 = (float3(transform15.x , transform15.y , transform15.z));
 				
 
@@ -1447,9 +1462,9 @@ Shader "Snow_Lit"
 				int _PassValue;
 			#endif
 
+			sampler2D _SnowTrailTex;
 			float3 _OrthCamPos;
 			float _OrthCamSize;
-			sampler2D _SnowTrailTex;
 			sampler2D _GroundHeightTex;
 
 
@@ -1516,18 +1531,24 @@ Shader "Snow_Lit"
 				float3 WorldPos100 = ase_positionWS;
 				float3 localCalcUV100 = CalcUV( OrthCamPos100 , OrthCamSize100 , WorldPos100 );
 				float3 break108 = localCalcUV100;
-				float uvInRange37 = break108.z;
 				float2 appendResult109 = (float2(break108.x , break108.y));
 				float2 uv31 = appendResult109;
-				float clampResult41 = clamp( tex2Dlod( _SnowTrailTex, float4( uv31, 0, 0.0) ).g , 0.0 , 1.0 );
-				float saferPower84 = abs( clampResult41 );
 				float simplePerlin3D65 = snoise( ase_positionWS*_NoiseScale );
 				simplePerlin3D65 = simplePerlin3D65*0.5 + 0.5;
+				float2 appendResult114 = (float2(tex2Dlod( _SnowTrailTex, float4( uv31, 0, 0.0) ).g , simplePerlin3D65));
+				float2 CompTex110 = appendResult114;
+				float NoiseStrength110 = _NoiseStrength;
 				float2 uv_GroundHeightTex = input.ase_texcoord.xy * _GroundHeightTex_ST.xy + _GroundHeightTex_ST.zw;
-				float4 tex2DNode88 = tex2Dlod( _GroundHeightTex, float4( uv_GroundHeightTex, 0, 0.0) );
-				float lerpResult93 = lerp( ( ( 1.0 - clampResult41 ) + ( ( pow( saferPower84 , 0.2 ) *  (-1.0 + ( simplePerlin3D65 - 0.0 ) * ( 1.0 - -1.0 ) / ( 1.0 - 0.0 ) ) ) * _NoiseStrength * 0.1 ) ) , tex2DNode88.r , _GroundStrength);
-				float Height44 = ( ( 1.0 - uvInRange37 ) + ( uvInRange37 * lerpResult93 ) );
-				float4 transform15 = mul(GetWorldToObjectMatrix(),float4( ( float3( 0, 1, 0 ) * ( ( Height44 * _SnowHeight ) * 0.5 ) ) , 0.0 ));
+				float2 appendResult113 = (float2(tex2Dlod( _GroundHeightTex, float4( uv_GroundHeightTex, 0, 0.0) ).r , _GroundStrength));
+				float2 Ground110 = appendResult113;
+				float uvInRange37 = break108.z;
+				float uvInRange110 = uvInRange37;
+				float localCalcHeight110 = CalcHeight( CompTex110 , NoiseStrength110 , Ground110 , uvInRange110 );
+				float Height44 = localCalcHeight110;
+				float Height116 = Height44;
+				float SnowHeight116 = _SnowHeight;
+				float localCalcSnowHeight116 = CalcSnowHeight( Height116 , SnowHeight116 );
+				float4 transform15 = mul(GetWorldToObjectMatrix(),float4( ( float3( 0, 1, 0 ) * localCalcSnowHeight116 ) , 0.0 ));
 				float3 appendResult18 = (float3(transform15.x , transform15.y , transform15.z));
 				
 
@@ -1805,9 +1826,9 @@ Shader "Snow_Lit"
 				int _PassValue;
 			#endif
 
+			sampler2D _SnowTrailTex;
 			float3 _OrthCamPos;
 			float _OrthCamSize;
-			sampler2D _SnowTrailTex;
 			sampler2D _GroundHeightTex;
 
 
@@ -1874,18 +1895,24 @@ Shader "Snow_Lit"
 				float3 WorldPos100 = ase_positionWS;
 				float3 localCalcUV100 = CalcUV( OrthCamPos100 , OrthCamSize100 , WorldPos100 );
 				float3 break108 = localCalcUV100;
-				float uvInRange37 = break108.z;
 				float2 appendResult109 = (float2(break108.x , break108.y));
 				float2 uv31 = appendResult109;
-				float clampResult41 = clamp( tex2Dlod( _SnowTrailTex, float4( uv31, 0, 0.0) ).g , 0.0 , 1.0 );
-				float saferPower84 = abs( clampResult41 );
 				float simplePerlin3D65 = snoise( ase_positionWS*_NoiseScale );
 				simplePerlin3D65 = simplePerlin3D65*0.5 + 0.5;
+				float2 appendResult114 = (float2(tex2Dlod( _SnowTrailTex, float4( uv31, 0, 0.0) ).g , simplePerlin3D65));
+				float2 CompTex110 = appendResult114;
+				float NoiseStrength110 = _NoiseStrength;
 				float2 uv_GroundHeightTex = input.texcoord0.xy * _GroundHeightTex_ST.xy + _GroundHeightTex_ST.zw;
-				float4 tex2DNode88 = tex2Dlod( _GroundHeightTex, float4( uv_GroundHeightTex, 0, 0.0) );
-				float lerpResult93 = lerp( ( ( 1.0 - clampResult41 ) + ( ( pow( saferPower84 , 0.2 ) *  (-1.0 + ( simplePerlin3D65 - 0.0 ) * ( 1.0 - -1.0 ) / ( 1.0 - 0.0 ) ) ) * _NoiseStrength * 0.1 ) ) , tex2DNode88.r , _GroundStrength);
-				float Height44 = ( ( 1.0 - uvInRange37 ) + ( uvInRange37 * lerpResult93 ) );
-				float4 transform15 = mul(GetWorldToObjectMatrix(),float4( ( float3( 0, 1, 0 ) * ( ( Height44 * _SnowHeight ) * 0.5 ) ) , 0.0 ));
+				float2 appendResult113 = (float2(tex2Dlod( _GroundHeightTex, float4( uv_GroundHeightTex, 0, 0.0) ).r , _GroundStrength));
+				float2 Ground110 = appendResult113;
+				float uvInRange37 = break108.z;
+				float uvInRange110 = uvInRange37;
+				float localCalcHeight110 = CalcHeight( CompTex110 , NoiseStrength110 , Ground110 , uvInRange110 );
+				float Height44 = localCalcHeight110;
+				float Height116 = Height44;
+				float SnowHeight116 = _SnowHeight;
+				float localCalcSnowHeight116 = CalcSnowHeight( Height116 , SnowHeight116 );
+				float4 transform15 = mul(GetWorldToObjectMatrix(),float4( ( float3( 0, 1, 0 ) * localCalcSnowHeight116 ) , 0.0 ));
 				float3 appendResult18 = (float3(transform15.x , transform15.y , transform15.z));
 				
 				output.ase_texcoord3.xy = input.texcoord0.xy;
@@ -2027,17 +2054,20 @@ Shader "Snow_Lit"
 				float3 WorldPos100 = PositionWS;
 				float3 localCalcUV100 = CalcUV( OrthCamPos100 , OrthCamSize100 , WorldPos100 );
 				float3 break108 = localCalcUV100;
-				float uvInRange37 = break108.z;
 				float2 appendResult109 = (float2(break108.x , break108.y));
 				float2 uv31 = appendResult109;
-				float clampResult41 = clamp( tex2D( _SnowTrailTex, uv31 ).g , 0.0 , 1.0 );
-				float saferPower84 = abs( clampResult41 );
 				float simplePerlin3D65 = snoise( PositionWS*_NoiseScale );
 				simplePerlin3D65 = simplePerlin3D65*0.5 + 0.5;
+				float2 appendResult114 = (float2(tex2D( _SnowTrailTex, uv31 ).g , simplePerlin3D65));
+				float2 CompTex110 = appendResult114;
+				float NoiseStrength110 = _NoiseStrength;
 				float2 uv_GroundHeightTex = input.ase_texcoord3.xy * _GroundHeightTex_ST.xy + _GroundHeightTex_ST.zw;
-				float4 tex2DNode88 = tex2D( _GroundHeightTex, uv_GroundHeightTex );
-				float lerpResult93 = lerp( ( ( 1.0 - clampResult41 ) + ( ( pow( saferPower84 , 0.2 ) *  (-1.0 + ( simplePerlin3D65 - 0.0 ) * ( 1.0 - -1.0 ) / ( 1.0 - 0.0 ) ) ) * _NoiseStrength * 0.1 ) ) , tex2DNode88.r , _GroundStrength);
-				float Height44 = ( ( 1.0 - uvInRange37 ) + ( uvInRange37 * lerpResult93 ) );
+				float2 appendResult113 = (float2(tex2D( _GroundHeightTex, uv_GroundHeightTex ).r , _GroundStrength));
+				float2 Ground110 = appendResult113;
+				float uvInRange37 = break108.z;
+				float uvInRange110 = uvInRange37;
+				float localCalcHeight110 = CalcHeight( CompTex110 , NoiseStrength110 , Ground110 , uvInRange110 );
+				float Height44 = localCalcHeight110;
 				float saferPower54 = abs( Height44 );
 				float saferPower90 = abs( _MudHeight );
 				float3 lerpResult48 = lerp( _MudColor.rgb , _SnowColor.rgb , pow( saferPower54 , pow( saferPower90 , 3.0 ) ));
@@ -2182,9 +2212,9 @@ Shader "Snow_Lit"
 				int _PassValue;
 			#endif
 
+			sampler2D _SnowTrailTex;
 			float3 _OrthCamPos;
 			float _OrthCamSize;
-			sampler2D _SnowTrailTex;
 			sampler2D _GroundHeightTex;
 
 
@@ -2251,18 +2281,24 @@ Shader "Snow_Lit"
 				float3 WorldPos100 = ase_positionWS;
 				float3 localCalcUV100 = CalcUV( OrthCamPos100 , OrthCamSize100 , WorldPos100 );
 				float3 break108 = localCalcUV100;
-				float uvInRange37 = break108.z;
 				float2 appendResult109 = (float2(break108.x , break108.y));
 				float2 uv31 = appendResult109;
-				float clampResult41 = clamp( tex2Dlod( _SnowTrailTex, float4( uv31, 0, 0.0) ).g , 0.0 , 1.0 );
-				float saferPower84 = abs( clampResult41 );
 				float simplePerlin3D65 = snoise( ase_positionWS*_NoiseScale );
 				simplePerlin3D65 = simplePerlin3D65*0.5 + 0.5;
+				float2 appendResult114 = (float2(tex2Dlod( _SnowTrailTex, float4( uv31, 0, 0.0) ).g , simplePerlin3D65));
+				float2 CompTex110 = appendResult114;
+				float NoiseStrength110 = _NoiseStrength;
 				float2 uv_GroundHeightTex = input.ase_texcoord.xy * _GroundHeightTex_ST.xy + _GroundHeightTex_ST.zw;
-				float4 tex2DNode88 = tex2Dlod( _GroundHeightTex, float4( uv_GroundHeightTex, 0, 0.0) );
-				float lerpResult93 = lerp( ( ( 1.0 - clampResult41 ) + ( ( pow( saferPower84 , 0.2 ) *  (-1.0 + ( simplePerlin3D65 - 0.0 ) * ( 1.0 - -1.0 ) / ( 1.0 - 0.0 ) ) ) * _NoiseStrength * 0.1 ) ) , tex2DNode88.r , _GroundStrength);
-				float Height44 = ( ( 1.0 - uvInRange37 ) + ( uvInRange37 * lerpResult93 ) );
-				float4 transform15 = mul(GetWorldToObjectMatrix(),float4( ( float3( 0, 1, 0 ) * ( ( Height44 * _SnowHeight ) * 0.5 ) ) , 0.0 ));
+				float2 appendResult113 = (float2(tex2Dlod( _GroundHeightTex, float4( uv_GroundHeightTex, 0, 0.0) ).r , _GroundStrength));
+				float2 Ground110 = appendResult113;
+				float uvInRange37 = break108.z;
+				float uvInRange110 = uvInRange37;
+				float localCalcHeight110 = CalcHeight( CompTex110 , NoiseStrength110 , Ground110 , uvInRange110 );
+				float Height44 = localCalcHeight110;
+				float Height116 = Height44;
+				float SnowHeight116 = _SnowHeight;
+				float localCalcSnowHeight116 = CalcSnowHeight( Height116 , SnowHeight116 );
+				float4 transform15 = mul(GetWorldToObjectMatrix(),float4( ( float3( 0, 1, 0 ) * localCalcSnowHeight116 ) , 0.0 ));
 				float3 appendResult18 = (float3(transform15.x , transform15.y , transform15.z));
 				
 				output.ase_texcoord1.xy = input.ase_texcoord.xy;
@@ -2399,17 +2435,20 @@ Shader "Snow_Lit"
 				float3 WorldPos100 = PositionWS;
 				float3 localCalcUV100 = CalcUV( OrthCamPos100 , OrthCamSize100 , WorldPos100 );
 				float3 break108 = localCalcUV100;
-				float uvInRange37 = break108.z;
 				float2 appendResult109 = (float2(break108.x , break108.y));
 				float2 uv31 = appendResult109;
-				float clampResult41 = clamp( tex2D( _SnowTrailTex, uv31 ).g , 0.0 , 1.0 );
-				float saferPower84 = abs( clampResult41 );
 				float simplePerlin3D65 = snoise( PositionWS*_NoiseScale );
 				simplePerlin3D65 = simplePerlin3D65*0.5 + 0.5;
+				float2 appendResult114 = (float2(tex2D( _SnowTrailTex, uv31 ).g , simplePerlin3D65));
+				float2 CompTex110 = appendResult114;
+				float NoiseStrength110 = _NoiseStrength;
 				float2 uv_GroundHeightTex = input.ase_texcoord1.xy * _GroundHeightTex_ST.xy + _GroundHeightTex_ST.zw;
-				float4 tex2DNode88 = tex2D( _GroundHeightTex, uv_GroundHeightTex );
-				float lerpResult93 = lerp( ( ( 1.0 - clampResult41 ) + ( ( pow( saferPower84 , 0.2 ) *  (-1.0 + ( simplePerlin3D65 - 0.0 ) * ( 1.0 - -1.0 ) / ( 1.0 - 0.0 ) ) ) * _NoiseStrength * 0.1 ) ) , tex2DNode88.r , _GroundStrength);
-				float Height44 = ( ( 1.0 - uvInRange37 ) + ( uvInRange37 * lerpResult93 ) );
+				float2 appendResult113 = (float2(tex2D( _GroundHeightTex, uv_GroundHeightTex ).r , _GroundStrength));
+				float2 Ground110 = appendResult113;
+				float uvInRange37 = break108.z;
+				float uvInRange110 = uvInRange37;
+				float localCalcHeight110 = CalcHeight( CompTex110 , NoiseStrength110 , Ground110 , uvInRange110 );
+				float Height44 = localCalcHeight110;
 				float saferPower54 = abs( Height44 );
 				float saferPower90 = abs( _MudHeight );
 				float3 lerpResult48 = lerp( _MudColor.rgb , _SnowColor.rgb , pow( saferPower54 , pow( saferPower90 , 3.0 ) ));
@@ -2572,9 +2611,9 @@ Shader "Snow_Lit"
 				int _PassValue;
 			#endif
 
+			sampler2D _SnowTrailTex;
 			float3 _OrthCamPos;
 			float _OrthCamSize;
-			sampler2D _SnowTrailTex;
 			sampler2D _GroundHeightTex;
 
 
@@ -2641,18 +2680,24 @@ Shader "Snow_Lit"
 				float3 WorldPos100 = ase_positionWS;
 				float3 localCalcUV100 = CalcUV( OrthCamPos100 , OrthCamSize100 , WorldPos100 );
 				float3 break108 = localCalcUV100;
-				float uvInRange37 = break108.z;
 				float2 appendResult109 = (float2(break108.x , break108.y));
 				float2 uv31 = appendResult109;
-				float clampResult41 = clamp( tex2Dlod( _SnowTrailTex, float4( uv31, 0, 0.0) ).g , 0.0 , 1.0 );
-				float saferPower84 = abs( clampResult41 );
 				float simplePerlin3D65 = snoise( ase_positionWS*_NoiseScale );
 				simplePerlin3D65 = simplePerlin3D65*0.5 + 0.5;
+				float2 appendResult114 = (float2(tex2Dlod( _SnowTrailTex, float4( uv31, 0, 0.0) ).g , simplePerlin3D65));
+				float2 CompTex110 = appendResult114;
+				float NoiseStrength110 = _NoiseStrength;
 				float2 uv_GroundHeightTex = input.texcoord.xy * _GroundHeightTex_ST.xy + _GroundHeightTex_ST.zw;
-				float4 tex2DNode88 = tex2Dlod( _GroundHeightTex, float4( uv_GroundHeightTex, 0, 0.0) );
-				float lerpResult93 = lerp( ( ( 1.0 - clampResult41 ) + ( ( pow( saferPower84 , 0.2 ) *  (-1.0 + ( simplePerlin3D65 - 0.0 ) * ( 1.0 - -1.0 ) / ( 1.0 - 0.0 ) ) ) * _NoiseStrength * 0.1 ) ) , tex2DNode88.r , _GroundStrength);
-				float Height44 = ( ( 1.0 - uvInRange37 ) + ( uvInRange37 * lerpResult93 ) );
-				float4 transform15 = mul(GetWorldToObjectMatrix(),float4( ( float3( 0, 1, 0 ) * ( ( Height44 * _SnowHeight ) * 0.5 ) ) , 0.0 ));
+				float2 appendResult113 = (float2(tex2Dlod( _GroundHeightTex, float4( uv_GroundHeightTex, 0, 0.0) ).r , _GroundStrength));
+				float2 Ground110 = appendResult113;
+				float uvInRange37 = break108.z;
+				float uvInRange110 = uvInRange37;
+				float localCalcHeight110 = CalcHeight( CompTex110 , NoiseStrength110 , Ground110 , uvInRange110 );
+				float Height44 = localCalcHeight110;
+				float Height116 = Height44;
+				float SnowHeight116 = _SnowHeight;
+				float localCalcSnowHeight116 = CalcSnowHeight( Height116 , SnowHeight116 );
+				float4 transform15 = mul(GetWorldToObjectMatrix(),float4( ( float3( 0, 1, 0 ) * localCalcSnowHeight116 ) , 0.0 ));
 				float3 appendResult18 = (float3(transform15.x , transform15.y , transform15.z));
 				
 				output.ase_texcoord3.xy = input.texcoord.xy;
@@ -2825,17 +2870,20 @@ Shader "Snow_Lit"
 				float3 WorldPos100 = PositionWS;
 				float3 localCalcUV100 = CalcUV( OrthCamPos100 , OrthCamSize100 , WorldPos100 );
 				float3 break108 = localCalcUV100;
-				float uvInRange37 = break108.z;
 				float2 appendResult109 = (float2(break108.x , break108.y));
 				float2 uv31 = appendResult109;
-				float clampResult41 = clamp( tex2D( _SnowTrailTex, uv31 ).g , 0.0 , 1.0 );
-				float saferPower84 = abs( clampResult41 );
 				float simplePerlin3D65 = snoise( PositionWS*_NoiseScale );
 				simplePerlin3D65 = simplePerlin3D65*0.5 + 0.5;
+				float2 appendResult114 = (float2(tex2D( _SnowTrailTex, uv31 ).g , simplePerlin3D65));
+				float2 CompTex110 = appendResult114;
+				float NoiseStrength110 = _NoiseStrength;
 				float2 uv_GroundHeightTex = input.ase_texcoord3.xy * _GroundHeightTex_ST.xy + _GroundHeightTex_ST.zw;
-				float4 tex2DNode88 = tex2D( _GroundHeightTex, uv_GroundHeightTex );
-				float lerpResult93 = lerp( ( ( 1.0 - clampResult41 ) + ( ( pow( saferPower84 , 0.2 ) *  (-1.0 + ( simplePerlin3D65 - 0.0 ) * ( 1.0 - -1.0 ) / ( 1.0 - 0.0 ) ) ) * _NoiseStrength * 0.1 ) ) , tex2DNode88.r , _GroundStrength);
-				float Height44 = ( ( 1.0 - uvInRange37 ) + ( uvInRange37 * lerpResult93 ) );
+				float2 appendResult113 = (float2(tex2D( _GroundHeightTex, uv_GroundHeightTex ).r , _GroundStrength));
+				float2 Ground110 = appendResult113;
+				float uvInRange37 = break108.z;
+				float uvInRange110 = uvInRange37;
+				float localCalcHeight110 = CalcHeight( CompTex110 , NoiseStrength110 , Ground110 , uvInRange110 );
+				float Height44 = localCalcHeight110;
 				float temp_output_20_0_g1 = Height44;
 				float3 normalizeResult130_g1 = normalize( ( ( abs( dotResult115_g1 ) * NormalWS ) - ( _NormalStrength * float3( 0.05,0.05,0.05 ) * sign( dotResult115_g1 ) * ( ( ddx( temp_output_20_0_g1 ) * temp_output_113_0_g1 ) + ( ddy( temp_output_20_0_g1 ) * cross( NormalWS , temp_output_111_0_g1 ) ) ) ) ) );
 				
@@ -3068,9 +3116,9 @@ Shader "Snow_Lit"
 				int _PassValue;
 			#endif
 
+			sampler2D _SnowTrailTex;
 			float3 _OrthCamPos;
 			float _OrthCamSize;
-			sampler2D _SnowTrailTex;
 			sampler2D _GroundHeightTex;
 
 
@@ -3139,18 +3187,24 @@ Shader "Snow_Lit"
 				float3 WorldPos100 = ase_positionWS;
 				float3 localCalcUV100 = CalcUV( OrthCamPos100 , OrthCamSize100 , WorldPos100 );
 				float3 break108 = localCalcUV100;
-				float uvInRange37 = break108.z;
 				float2 appendResult109 = (float2(break108.x , break108.y));
 				float2 uv31 = appendResult109;
-				float clampResult41 = clamp( tex2Dlod( _SnowTrailTex, float4( uv31, 0, 0.0) ).g , 0.0 , 1.0 );
-				float saferPower84 = abs( clampResult41 );
 				float simplePerlin3D65 = snoise( ase_positionWS*_NoiseScale );
 				simplePerlin3D65 = simplePerlin3D65*0.5 + 0.5;
+				float2 appendResult114 = (float2(tex2Dlod( _SnowTrailTex, float4( uv31, 0, 0.0) ).g , simplePerlin3D65));
+				float2 CompTex110 = appendResult114;
+				float NoiseStrength110 = _NoiseStrength;
 				float2 uv_GroundHeightTex = input.texcoord.xy * _GroundHeightTex_ST.xy + _GroundHeightTex_ST.zw;
-				float4 tex2DNode88 = tex2Dlod( _GroundHeightTex, float4( uv_GroundHeightTex, 0, 0.0) );
-				float lerpResult93 = lerp( ( ( 1.0 - clampResult41 ) + ( ( pow( saferPower84 , 0.2 ) *  (-1.0 + ( simplePerlin3D65 - 0.0 ) * ( 1.0 - -1.0 ) / ( 1.0 - 0.0 ) ) ) * _NoiseStrength * 0.1 ) ) , tex2DNode88.r , _GroundStrength);
-				float Height44 = ( ( 1.0 - uvInRange37 ) + ( uvInRange37 * lerpResult93 ) );
-				float4 transform15 = mul(GetWorldToObjectMatrix(),float4( ( float3( 0, 1, 0 ) * ( ( Height44 * _SnowHeight ) * 0.5 ) ) , 0.0 ));
+				float2 appendResult113 = (float2(tex2Dlod( _GroundHeightTex, float4( uv_GroundHeightTex, 0, 0.0) ).r , _GroundStrength));
+				float2 Ground110 = appendResult113;
+				float uvInRange37 = break108.z;
+				float uvInRange110 = uvInRange37;
+				float localCalcHeight110 = CalcHeight( CompTex110 , NoiseStrength110 , Ground110 , uvInRange110 );
+				float Height44 = localCalcHeight110;
+				float Height116 = Height44;
+				float SnowHeight116 = _SnowHeight;
+				float localCalcSnowHeight116 = CalcSnowHeight( Height116 , SnowHeight116 );
+				float4 transform15 = mul(GetWorldToObjectMatrix(),float4( ( float3( 0, 1, 0 ) * localCalcSnowHeight116 ) , 0.0 ));
 				float3 appendResult18 = (float3(transform15.x , transform15.y , transform15.z));
 				
 				output.ase_texcoord6.xy = input.texcoord.xy;
@@ -3356,17 +3410,20 @@ Shader "Snow_Lit"
 				float3 WorldPos100 = PositionWS;
 				float3 localCalcUV100 = CalcUV( OrthCamPos100 , OrthCamSize100 , WorldPos100 );
 				float3 break108 = localCalcUV100;
-				float uvInRange37 = break108.z;
 				float2 appendResult109 = (float2(break108.x , break108.y));
 				float2 uv31 = appendResult109;
-				float clampResult41 = clamp( tex2D( _SnowTrailTex, uv31 ).g , 0.0 , 1.0 );
-				float saferPower84 = abs( clampResult41 );
 				float simplePerlin3D65 = snoise( PositionWS*_NoiseScale );
 				simplePerlin3D65 = simplePerlin3D65*0.5 + 0.5;
+				float2 appendResult114 = (float2(tex2D( _SnowTrailTex, uv31 ).g , simplePerlin3D65));
+				float2 CompTex110 = appendResult114;
+				float NoiseStrength110 = _NoiseStrength;
 				float2 uv_GroundHeightTex = input.ase_texcoord6.xy * _GroundHeightTex_ST.xy + _GroundHeightTex_ST.zw;
-				float4 tex2DNode88 = tex2D( _GroundHeightTex, uv_GroundHeightTex );
-				float lerpResult93 = lerp( ( ( 1.0 - clampResult41 ) + ( ( pow( saferPower84 , 0.2 ) *  (-1.0 + ( simplePerlin3D65 - 0.0 ) * ( 1.0 - -1.0 ) / ( 1.0 - 0.0 ) ) ) * _NoiseStrength * 0.1 ) ) , tex2DNode88.r , _GroundStrength);
-				float Height44 = ( ( 1.0 - uvInRange37 ) + ( uvInRange37 * lerpResult93 ) );
+				float2 appendResult113 = (float2(tex2D( _GroundHeightTex, uv_GroundHeightTex ).r , _GroundStrength));
+				float2 Ground110 = appendResult113;
+				float uvInRange37 = break108.z;
+				float uvInRange110 = uvInRange37;
+				float localCalcHeight110 = CalcHeight( CompTex110 , NoiseStrength110 , Ground110 , uvInRange110 );
+				float Height44 = localCalcHeight110;
 				float saferPower54 = abs( Height44 );
 				float saferPower90 = abs( _MudHeight );
 				float3 lerpResult48 = lerp( _MudColor.rgb , _SnowColor.rgb , pow( saferPower54 , pow( saferPower90 , 3.0 ) ));
@@ -3625,9 +3682,9 @@ Shader "Snow_Lit"
 				int _PassValue;
 			#endif
 
+			sampler2D _SnowTrailTex;
 			float3 _OrthCamPos;
 			float _OrthCamSize;
-			sampler2D _SnowTrailTex;
 			sampler2D _GroundHeightTex;
 
 
@@ -3702,18 +3759,24 @@ Shader "Snow_Lit"
 				float3 WorldPos100 = ase_positionWS;
 				float3 localCalcUV100 = CalcUV( OrthCamPos100 , OrthCamSize100 , WorldPos100 );
 				float3 break108 = localCalcUV100;
-				float uvInRange37 = break108.z;
 				float2 appendResult109 = (float2(break108.x , break108.y));
 				float2 uv31 = appendResult109;
-				float clampResult41 = clamp( tex2Dlod( _SnowTrailTex, float4( uv31, 0, 0.0) ).g , 0.0 , 1.0 );
-				float saferPower84 = abs( clampResult41 );
 				float simplePerlin3D65 = snoise( ase_positionWS*_NoiseScale );
 				simplePerlin3D65 = simplePerlin3D65*0.5 + 0.5;
+				float2 appendResult114 = (float2(tex2Dlod( _SnowTrailTex, float4( uv31, 0, 0.0) ).g , simplePerlin3D65));
+				float2 CompTex110 = appendResult114;
+				float NoiseStrength110 = _NoiseStrength;
 				float2 uv_GroundHeightTex = input.ase_texcoord.xy * _GroundHeightTex_ST.xy + _GroundHeightTex_ST.zw;
-				float4 tex2DNode88 = tex2Dlod( _GroundHeightTex, float4( uv_GroundHeightTex, 0, 0.0) );
-				float lerpResult93 = lerp( ( ( 1.0 - clampResult41 ) + ( ( pow( saferPower84 , 0.2 ) *  (-1.0 + ( simplePerlin3D65 - 0.0 ) * ( 1.0 - -1.0 ) / ( 1.0 - 0.0 ) ) ) * _NoiseStrength * 0.1 ) ) , tex2DNode88.r , _GroundStrength);
-				float Height44 = ( ( 1.0 - uvInRange37 ) + ( uvInRange37 * lerpResult93 ) );
-				float4 transform15 = mul(GetWorldToObjectMatrix(),float4( ( float3( 0, 1, 0 ) * ( ( Height44 * _SnowHeight ) * 0.5 ) ) , 0.0 ));
+				float2 appendResult113 = (float2(tex2Dlod( _GroundHeightTex, float4( uv_GroundHeightTex, 0, 0.0) ).r , _GroundStrength));
+				float2 Ground110 = appendResult113;
+				float uvInRange37 = break108.z;
+				float uvInRange110 = uvInRange37;
+				float localCalcHeight110 = CalcHeight( CompTex110 , NoiseStrength110 , Ground110 , uvInRange110 );
+				float Height44 = localCalcHeight110;
+				float Height116 = Height44;
+				float SnowHeight116 = _SnowHeight;
+				float localCalcSnowHeight116 = CalcSnowHeight( Height116 , SnowHeight116 );
+				float4 transform15 = mul(GetWorldToObjectMatrix(),float4( ( float3( 0, 1, 0 ) * localCalcSnowHeight116 ) , 0.0 ));
 				float3 appendResult18 = (float3(transform15.x , transform15.y , transform15.z));
 				
 
@@ -3982,9 +4045,9 @@ Shader "Snow_Lit"
 				int _PassValue;
 			#endif
 
+			sampler2D _SnowTrailTex;
 			float3 _OrthCamPos;
 			float _OrthCamSize;
-			sampler2D _SnowTrailTex;
 			sampler2D _GroundHeightTex;
 
 
@@ -4059,18 +4122,24 @@ Shader "Snow_Lit"
 				float3 WorldPos100 = ase_positionWS;
 				float3 localCalcUV100 = CalcUV( OrthCamPos100 , OrthCamSize100 , WorldPos100 );
 				float3 break108 = localCalcUV100;
-				float uvInRange37 = break108.z;
 				float2 appendResult109 = (float2(break108.x , break108.y));
 				float2 uv31 = appendResult109;
-				float clampResult41 = clamp( tex2Dlod( _SnowTrailTex, float4( uv31, 0, 0.0) ).g , 0.0 , 1.0 );
-				float saferPower84 = abs( clampResult41 );
 				float simplePerlin3D65 = snoise( ase_positionWS*_NoiseScale );
 				simplePerlin3D65 = simplePerlin3D65*0.5 + 0.5;
+				float2 appendResult114 = (float2(tex2Dlod( _SnowTrailTex, float4( uv31, 0, 0.0) ).g , simplePerlin3D65));
+				float2 CompTex110 = appendResult114;
+				float NoiseStrength110 = _NoiseStrength;
 				float2 uv_GroundHeightTex = input.ase_texcoord.xy * _GroundHeightTex_ST.xy + _GroundHeightTex_ST.zw;
-				float4 tex2DNode88 = tex2Dlod( _GroundHeightTex, float4( uv_GroundHeightTex, 0, 0.0) );
-				float lerpResult93 = lerp( ( ( 1.0 - clampResult41 ) + ( ( pow( saferPower84 , 0.2 ) *  (-1.0 + ( simplePerlin3D65 - 0.0 ) * ( 1.0 - -1.0 ) / ( 1.0 - 0.0 ) ) ) * _NoiseStrength * 0.1 ) ) , tex2DNode88.r , _GroundStrength);
-				float Height44 = ( ( 1.0 - uvInRange37 ) + ( uvInRange37 * lerpResult93 ) );
-				float4 transform15 = mul(GetWorldToObjectMatrix(),float4( ( float3( 0, 1, 0 ) * ( ( Height44 * _SnowHeight ) * 0.5 ) ) , 0.0 ));
+				float2 appendResult113 = (float2(tex2Dlod( _GroundHeightTex, float4( uv_GroundHeightTex, 0, 0.0) ).r , _GroundStrength));
+				float2 Ground110 = appendResult113;
+				float uvInRange37 = break108.z;
+				float uvInRange110 = uvInRange37;
+				float localCalcHeight110 = CalcHeight( CompTex110 , NoiseStrength110 , Ground110 , uvInRange110 );
+				float Height44 = localCalcHeight110;
+				float Height116 = Height44;
+				float SnowHeight116 = _SnowHeight;
+				float localCalcSnowHeight116 = CalcSnowHeight( Height116 , SnowHeight116 );
+				float4 transform15 = mul(GetWorldToObjectMatrix(),float4( ( float3( 0, 1, 0 ) * localCalcSnowHeight116 ) , 0.0 ));
 				float3 appendResult18 = (float3(transform15.x , transform15.y , transform15.z));
 				
 
@@ -4229,82 +4298,54 @@ Shader "Snow_Lit"
 
 /*ASEBEGIN
 Version=19904
+Node;AmplifyShaderEditor.Vector3Node, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;42;-6528,1712;Inherit;False;Global;_OrthCamPos;_OrthCamPos;1;0;Create;True;0;0;0;False;0;False;0,0,0;7.177734,1.2,-4.345703;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;22;-6512,1968;Inherit;False;Global;_OrthCamSize;_OrthCamSize;2;0;Create;True;0;0;0;False;0;False;0;50;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;32;-5972,1584;Inherit;False;1522.597;735.7503;Comment;8;37;108;100;101;104;103;31;109;UV;1,1,1,1;0;0
-Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;57;-2322,1950;Inherit;False;3446.197;1284.481;Comment;25;44;91;39;93;94;88;70;71;11;72;86;73;41;69;84;10;87;65;30;66;67;96;99;95;112;Height;1,1,1,1;0;0
-Node;AmplifyShaderEditor.DynamicAppendNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;109;-5092,1792;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;22;-5840,576;Inherit;False;Global;_OrthCamSize;_OrthCamSize;2;0;Create;True;0;0;0;False;0;False;0;50;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.WorldPosInputsNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;67;-1840,2384;Inherit;False;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;66;-1824,2560;Inherit;False;Property;_NoiseScale;NoiseScale;6;0;Create;True;0;0;0;False;0;False;1;0;0;20;0;1;FLOAT;0
-Node;AmplifyShaderEditor.Vector3Node, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;42;-6656,80;Inherit;False;Global;_OrthCamPos;_OrthCamPos;1;0;Create;True;0;0;0;False;0;False;0,0,0;-0.09765625,1.2,-6.201172;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
-Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;31;-4900,1792;Inherit;False;uv;-1;True;1;0;FLOAT2;0,0;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;24;-5616,576;Inherit;False;OrthCamSize;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;30;-2224,2160;Inherit;False;31;uv;1;0;OBJECT;;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;87;-1616,2320;Inherit;False;Constant;_Float7;Float 7;8;0;Create;True;0;0;0;False;0;False;0.2;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.NoiseGeneratorNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;65;-1504,2416;Inherit;False;Simplex3D;True;False;2;0;FLOAT3;0,0,0;False;1;FLOAT;1;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;102;-6384,48;Inherit;False;OrthCamPos;-1;True;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.SamplerNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;10;-2016,2128;Inherit;True;Global;_SnowTrailTex;_SnowTrailTex;1;0;Create;True;0;0;0;False;0;False;-1;None;b5e4bae32dca56b4eafa5b3d8bb30626;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;False;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
-Node;AmplifyShaderEditor.PowerNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;84;-1408,2288;Inherit;False;True;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0
-Node;AmplifyShaderEditor.TFHCRemapNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;69;-1152,2400;Inherit;False;5;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;1;False;3;FLOAT;-1;False;4;FLOAT;1;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;102;-6304,1712;Inherit;False;OrthCamPos;-1;True;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;24;-6288,1968;Inherit;False;OrthCamSize;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;103;-5828,1776;Inherit;False;102;OrthCamPos;1;0;OBJECT;;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.WorldPosInputsNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;104;-5828,2000;Inherit;False;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;101;-5828,1872;Inherit;False;24;OrthCamSize;1;0;OBJECT;;False;1;FLOAT;0
-Node;AmplifyShaderEditor.ClampOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;41;-1648,2144;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;1;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;73;-864,2688;Inherit;False;Constant;_Float5;Float 5;7;0;Create;True;0;0;0;False;0;False;0.1;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;86;-880,2336;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;72;-992,2560;Inherit;False;Property;_NoiseStrength;NoiseStrength;7;0;Create;True;0;0;0;False;0;False;1;0;0;1.2;0;1;FLOAT;0
 Node;AmplifyShaderEditor.CustomExpressionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;100;-5508,1808;Inherit;False; ;3;File;3;True;OrthCamPos;FLOAT3;0,0,0;In;;Inherit;False;True;OrthCamSize;FLOAT;0;In;;Inherit;False;True;WorldPos;FLOAT3;0,0,0;In;;Inherit;False;CalcUV;False;False;0;daf191b03667517419659807f850681c;False;3;0;FLOAT3;0,0,0;False;1;FLOAT;0;False;2;FLOAT3;0,0,0;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.OneMinusNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;11;-1248,2208;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;71;-624,2432;Inherit;False;3;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.BreakToComponentsNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;108;-5236,1824;Inherit;False;FLOAT3;1;0;FLOAT3;0,0,0;False;16;FLOAT;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT;5;FLOAT;6;FLOAT;7;FLOAT;8;FLOAT;9;FLOAT;10;FLOAT;11;FLOAT;12;FLOAT;13;FLOAT;14;FLOAT;15
-Node;AmplifyShaderEditor.SimpleAddOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;70;-432,2288;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.DynamicAppendNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;109;-5092,1792;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;31;-4900,1792;Inherit;False;uv;-1;True;1;0;FLOAT2;0,0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;57;-3584,2096;Inherit;False;2786.658;1481.58;Comment;13;44;110;111;72;114;113;65;10;88;94;66;67;115;Height;1,1,1,1;0;0
+Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;115;-3152,2320;Inherit;False;31;uv;1;0;OBJECT;;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.WorldPosInputsNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;67;-3232,2512;Inherit;False;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;66;-3264,2720;Inherit;False;Property;_NoiseScale;NoiseScale;6;0;Create;True;0;0;0;False;0;False;1;0;0;20;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;37;-4868,1984;Inherit;False;uvInRange;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;94;-656,2960;Inherit;False;Property;_GroundStrength;GroundStrength;9;0;Create;True;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.SamplerNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;88;-656,2704;Inherit;True;Property;_GroundHeightTex;GroundHeightTex;8;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;False;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
-Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;39;48,2320;Inherit;False;37;uvInRange;1;0;OBJECT;;False;1;FLOAT;0
-Node;AmplifyShaderEditor.LerpOp, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;93;-32,2512;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;91;288,2448;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.OneMinusNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;96;256,2288;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.SimpleAddOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;95;448.5232,2324.168;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;49;-2080,784;Inherit;False;1944.67;741.621;Comment;9;56;18;15;45;14;16;17;12;13;VertOffset;1,1,1,1;0;0
-Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;44;640,2448;Inherit;False;Height;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;56;-1696,1024;Inherit;False;44;Height;1;0;OBJECT;;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;13;-1776,1248;Inherit;False;Property;_SnowHeight;SnowHeight;0;0;Create;True;0;0;0;False;0;False;3;0;0;3;0;1;FLOAT;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;12;-1376,1040;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;17;-1296,1184;Inherit;False;Constant;_Float0;Float 0;2;0;Create;True;0;0;0;False;0;False;0.5;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;16;-1088,1024;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;94;-2976,3184;Inherit;False;Property;_GroundStrength;GroundStrength;9;0;Create;True;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.SamplerNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;88;-2976,2928;Inherit;True;Property;_GroundHeightTex;GroundHeightTex;8;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;False;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
+Node;AmplifyShaderEditor.SamplerNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;10;-2896,2288;Inherit;True;Global;_SnowTrailTex;_SnowTrailTex;1;0;Create;True;0;0;0;False;0;False;-1;None;b5e4bae32dca56b4eafa5b3d8bb30626;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;False;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
+Node;AmplifyShaderEditor.NoiseGeneratorNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;65;-2880,2560;Inherit;False;Simplex3D;True;False;2;0;FLOAT3;0,0,0;False;1;FLOAT;1;False;1;FLOAT;0
+Node;AmplifyShaderEditor.DynamicAppendNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;113;-2576,3072;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.DynamicAppendNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;114;-2496,2528;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;72;-2576,2880;Inherit;False;Property;_NoiseStrength;NoiseStrength;7;0;Create;True;0;0;0;False;0;False;1;0;0;1.2;0;1;FLOAT;0
+Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;111;-2560,3296;Inherit;False;37;uvInRange;1;0;OBJECT;;False;1;FLOAT;0
+Node;AmplifyShaderEditor.CustomExpressionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;110;-1856,2864;Inherit;False; ;1;File;4;True;CompTex;FLOAT2;0,0;In;;Inherit;False;True;NoiseStrength;FLOAT;0;In;;Inherit;False;True;Ground;FLOAT2;0,0;In;;Inherit;False;True;uvInRange;FLOAT;0;In;;Inherit;False;CalcHeight;False;False;0;daf191b03667517419659807f850681c;False;4;0;FLOAT2;0,0;False;1;FLOAT;0;False;2;FLOAT2;0,0;False;3;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;49;-2080,784;Inherit;False;1944.67;741.621;Comment;7;56;18;15;45;14;13;116;VertOffset;1,1,1,1;0;0
+Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;44;-1376,2880;Inherit;False;Height;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;13;-1680,1312;Inherit;False;Property;_SnowHeight;SnowHeight;0;0;Create;True;0;0;0;False;0;False;3;0;0;3;0;1;FLOAT;0
+Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;56;-1584,1088;Inherit;False;44;Height;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.Vector3Node, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;14;-1184,832;Inherit;False;Constant;_Vector0;Vector 0;2;0;Create;True;0;0;0;False;0;False;0,1,0;0,0,0;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
+Node;AmplifyShaderEditor.CustomExpressionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;116;-1344,1200;Inherit;False; ;1;File;2;True;Height;FLOAT;0;In;;Inherit;False;True;SnowHeight;FLOAT;0;In;;Inherit;False;CalcSnowHeight;False;False;0;daf191b03667517419659807f850681c;False;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;45;-912,912;Inherit;False;2;2;0;FLOAT3;0,0,0;False;1;FLOAT;0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.WorldToObjectTransfNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;15;-720,912;Inherit;False;1;0;FLOAT4;0,0,0,1;False;5;FLOAT4;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;60;64,976;Inherit;False;44;Height;1;0;OBJECT;;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;59;288,1008;Inherit;False;Normal From Height;-1;;1;1942fe2c5f1a1f94881a33d532e4afeb;0;2;20;FLOAT;0;False;110;FLOAT;1;False;2;FLOAT3;40;FLOAT3;0
 Node;AmplifyShaderEditor.DynamicAppendNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;18;-464,976;Inherit;False;FLOAT3;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;61;-16,1120;Inherit;False;Property;_NormalStrength;NormalStrength;4;0;Create;True;0;0;0;False;0;False;1;0;1;1.5;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;43;656,384;Inherit;False;Constant;_Float3;Float 3;1;0;Create;True;0;0;0;False;0;False;0.3;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.LerpOp, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;48;-352,-112;Inherit;False;3;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT;0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.ColorNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;51;-848,-416;Inherit;False;Property;_MudColor;MudColor;3;0;Create;True;0;0;0;False;0;False;0,0,0,0;0,0,0,0;True;True;0;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
-Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;50;-896,160;Inherit;False;44;Height;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.PowerNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;54;-640,208;Inherit;False;True;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0
 Node;AmplifyShaderEditor.ColorNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;52;-880,-144;Inherit;False;Property;_SnowColor;SnowColor;2;0;Create;True;0;0;0;False;0;False;0,0,0,0;0,0,0,0;True;True;0;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
 Node;AmplifyShaderEditor.LightAttenuation, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;74;-112,176;Inherit;False;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;75;320,-48;Inherit;False;2;2;0;FLOAT3;0,0,0;False;1;FLOAT;0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.PowerNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;90;-880,320;Inherit;False;True;2;0;FLOAT;0;False;1;FLOAT;3;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;55;-1200,320;Inherit;False;Property;_MudHeight;MudHeight;5;0;Create;True;0;0;0;False;0;False;3;3;0;3;0;1;FLOAT;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;99;-240.0216,2741.681;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.WorldPosInputsNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;20;-5552,-1280;Inherit;False;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
-Node;AmplifyShaderEditor.DynamicAppendNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;34;-5312,-1072;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.DynamicAppendNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;33;-5312,-1232;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.SimpleSubtractOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;21;-5040,-1200;Inherit;False;2;0;FLOAT2;0,0;False;1;FLOAT2;0,0;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;23;-5104,-944;Inherit;False;24;OrthCamSize;1;0;OBJECT;;False;1;FLOAT;0
-Node;AmplifyShaderEditor.SimpleDivideOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;25;-4816,-1168;Inherit;False;2;0;FLOAT2;0,0;False;1;FLOAT;0;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;27;-4880,-928;Inherit;False;Constant;_Float1;Float 1;3;0;Create;True;0;0;0;False;0;False;0.5;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;26;-4624,-1040;Inherit;False;2;2;0;FLOAT2;0,0;False;1;FLOAT;0;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;29;-4640,-864;Inherit;False;Constant;_Float2;Float 2;3;0;Create;True;0;0;0;False;0;False;0.5;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.SimpleAddOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;28;-4448,-976;Inherit;False;2;2;0;FLOAT2;0,0;False;1;FLOAT;0;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.BreakToComponentsNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;107;-5424,-1072;Inherit;False;FLOAT3;1;0;FLOAT3;0,0,0;False;16;FLOAT;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT;5;FLOAT;6;FLOAT;7;FLOAT;8;FLOAT;9;FLOAT;10;FLOAT;11;FLOAT;12;FLOAT;13;FLOAT;14;FLOAT;15
-Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;106;-5632,-928;Inherit;False;102;OrthCamPos;1;0;OBJECT;;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.CustomExpressionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;110;-3488,2672;Inherit;False; ;3;File;4;True;CompTex;FLOAT2;0,0;In;;Inherit;False;True;NoiseStrength;FLOAT;0;In;;Inherit;False;True;Ground;FLOAT2;0,0;In;;Inherit;False;True;uvInRange;FLOAT;0;In;;Inherit;False;CalcHeight;False;False;0;daf191b03667517419659807f850681c;False;4;0;FLOAT2;0,0;False;1;FLOAT;0;False;2;FLOAT2;0,0;False;3;FLOAT;0;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;111;-3744,2832;Inherit;False;37;uvInRange;1;0;OBJECT;;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;112;-319.6776,2947.644;Inherit;False;GroundStrength;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;50;-896,160;Inherit;False;44;Height;1;0;OBJECT;;False;1;FLOAT;0
+Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;60;272,1008;Inherit;False;44;Height;1;0;OBJECT;;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;59;496,1040;Inherit;False;Normal From Height;-1;;1;1942fe2c5f1a1f94881a33d532e4afeb;0;2;20;FLOAT;0;False;110;FLOAT;1;False;2;FLOAT3;40;FLOAT3;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;61;192,1152;Inherit;False;Property;_NormalStrength;NormalStrength;4;0;Create;True;0;0;0;False;0;False;1;0;1;1.5;0;1;FLOAT;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;0;128,-32;Float;False;False;-1;3;UnityEditor.ShaderGraphLitGUI;0;12;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;ExtraPrePass;0;0;ExtraPrePass;6;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;True;1;1;False;;0;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;0;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2;0,0;Float;False;False;-1;3;UnityEditor.ShaderGraphLitGUI;0;12;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;ShadowCaster;0;2;ShadowCaster;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;False;False;True;False;False;False;False;0;False;;False;False;False;False;False;False;False;False;False;True;1;False;;True;3;False;;False;True;1;LightMode=ShadowCaster;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;3;0,0;Float;False;False;-1;3;UnityEditor.ShaderGraphLitGUI;0;12;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;DepthOnly;0;3;DepthOnly;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;False;False;True;True;False;False;False;0;False;;False;False;False;False;False;False;False;False;False;True;1;False;;False;False;True;1;LightMode=DepthOnly;False;False;0;;0;0;Standard;0;False;0
@@ -4315,49 +4356,33 @@ Node;AmplifyShaderEditor.TemplateMultiPassMasterNode, AmplifyShaderEditor, Versi
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;8;0,0;Float;False;False;-1;3;UnityEditor.ShaderGraphLitGUI;0;12;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;SceneSelectionPass;0;8;SceneSelectionPass;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;2;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=SceneSelectionPass;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;9;0,0;Float;False;False;-1;3;UnityEditor.ShaderGraphLitGUI;0;12;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;ScenePickingPass;0;9;ScenePickingPass;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=Picking;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;1;1056,272;Float;False;True;-1;3;UnityEditor.ShaderGraphLitGUI;0;12;Snow_Lit;94348b07e5e8bab40bd6c8a1e3df54cd;True;Forward;0;1;Forward;21;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;5;True;12;all;0;False;True;1;1;False;;0;False;;1;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=UniversalForward;False;False;0;;0;0;Standard;48;Category;0;0;  Instanced Terrain Normals;1;0;Lighting Model;0;0;Workflow;1;0;Surface;0;0;  Keep Alpha;0;0;  Refraction Model;0;0;  Blend;0;0;Two Sided;1;0;Alpha Clipping;1;0;  Use Shadow Threshold;0;0;Fragment Normal Space;0;0;Forward Only;0;0;Transmission;0;0;  Transmission Shadow;0.5,False,;0;Translucency;0;0;  Translucency Strength;1,False,;0;  Normal Distortion;0.5,False,;0;  Scattering;2,False,;0;  Direct;0.9,False,;0;  Ambient;0.1,False,;0;  Shadow;0.5,False,;0;Cast Shadows;1;0;Receive Shadows;2;0;Specular Highlights;2;0;Environment Reflections;2;0;Receive SSAO;1;0;GPU Instancing;1;0;LOD CrossFade;1;0;Built-in Fog;0;639230050052291097;_FinalColorxAlpha;0;0;Meta Pass;1;0;Override Baked GI;0;0;Extra Pre Pass;0;0;Tessellation;1;639230050180761710;  Phong;0;639230054310345552;  Strength;0.5,False,;0;  Type;1;639230054280283071;  Tess;16,False,;0;  Min;0.1,False,;639230054350279972;  Max;60,False,;639230054386869862;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Write Depth;0;0;  Early Z;0;0;Vertex Position;1;0;Debug Display;1;0;Clear Coat;0;0;0;10;False;True;True;True;True;True;True;True;True;True;False;;False;0
-WireConnection;109;0;108;0
-WireConnection;109;1;108;1
-WireConnection;31;0;109;0
-WireConnection;24;0;22;0
-WireConnection;65;0;67;0
-WireConnection;65;1;66;0
 WireConnection;102;0;42;0
-WireConnection;10;1;30;0
-WireConnection;84;0;41;0
-WireConnection;84;1;87;0
-WireConnection;69;0;65;0
-WireConnection;41;0;10;2
-WireConnection;86;0;84;0
-WireConnection;86;1;69;0
+WireConnection;24;0;22;0
 WireConnection;100;0;103;0
 WireConnection;100;1;101;0
 WireConnection;100;2;104;0
-WireConnection;11;0;41;0
-WireConnection;71;0;86;0
-WireConnection;71;1;72;0
-WireConnection;71;2;73;0
 WireConnection;108;0;100;0
-WireConnection;70;0;11;0
-WireConnection;70;1;71;0
+WireConnection;109;0;108;0
+WireConnection;109;1;108;1
+WireConnection;31;0;109;0
 WireConnection;37;0;108;2
-WireConnection;93;0;70;0
-WireConnection;93;1;88;1
-WireConnection;93;2;94;0
-WireConnection;91;0;39;0
-WireConnection;91;1;93;0
-WireConnection;96;0;39;0
-WireConnection;95;0;96;0
-WireConnection;95;1;91;0
-WireConnection;44;0;95;0
-WireConnection;12;0;56;0
-WireConnection;12;1;13;0
-WireConnection;16;0;12;0
-WireConnection;16;1;17;0
+WireConnection;10;1;115;0
+WireConnection;65;0;67;0
+WireConnection;65;1;66;0
+WireConnection;113;0;88;1
+WireConnection;113;1;94;0
+WireConnection;114;0;10;2
+WireConnection;114;1;65;0
+WireConnection;110;0;114;0
+WireConnection;110;1;72;0
+WireConnection;110;2;113;0
+WireConnection;110;3;111;0
+WireConnection;44;0;110;0
+WireConnection;116;0;56;0
+WireConnection;116;1;13;0
 WireConnection;45;0;14;0
-WireConnection;45;1;16;0
+WireConnection;45;1;116;0
 WireConnection;15;0;45;0
-WireConnection;59;20;60;0
-WireConnection;59;110;61;0
 WireConnection;18;0;15;1
 WireConnection;18;1;15;2
 WireConnection;18;2;15;3
@@ -4369,26 +4394,11 @@ WireConnection;54;1;90;0
 WireConnection;75;0;48;0
 WireConnection;75;1;74;0
 WireConnection;90;0;55;0
-WireConnection;99;0;88;1
-WireConnection;99;1;94;0
-WireConnection;34;0;107;0
-WireConnection;34;1;107;2
-WireConnection;33;0;20;1
-WireConnection;33;1;20;3
-WireConnection;21;0;33;0
-WireConnection;21;1;34;0
-WireConnection;25;0;21;0
-WireConnection;25;1;23;0
-WireConnection;26;0;25;0
-WireConnection;26;1;27;0
-WireConnection;28;0;26;0
-WireConnection;28;1;29;0
-WireConnection;107;0;106;0
-WireConnection;110;3;111;0
-WireConnection;112;0;94;0
+WireConnection;59;20;60;0
+WireConnection;59;110;61;0
 WireConnection;1;0;75;0
 WireConnection;1;1;59;0
 WireConnection;1;4;43;0
 WireConnection;1;8;18;0
 ASEEND*/
-//CHKSM=5A5D1458D4BD36214E4E3536BBCED92E7E28EB58
+//CHKSM=5797658A58C555F795110709A281EC5DA7C56EC4

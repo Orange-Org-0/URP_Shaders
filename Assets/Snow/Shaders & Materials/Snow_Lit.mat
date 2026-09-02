@@ -35,7 +35,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SnowTrailTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 8400000, guid: b5e4bae32dca56b4eafa5b3d8bb30626, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -70,14 +70,14 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 0
-    - _SnowHeight: 0.6
+    - _SnowHeight: 1.62
     - _SpecularHighlights: 0
     - _TessMax: 60
     - _TessMin: 0.1
     - _TessValue: 19.5
     m_Colors:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _MudColor: {r: 0.47843137, g: 0.31757942, b: 0.07843137, a: 0}
-    - _SnowColor: {r: 1, g: 1, b: 1, a: 0}
+    - _MudColor: {r: 0.47843137, g: 0.31764707, b: 0.078431375, a: 0}
+    - _SnowColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
