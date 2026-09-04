@@ -36,7 +36,7 @@ public class SnowController : MonoBehaviour
     [FormerlySerializedAs("SnowMaterial")]
     [SerializeField] private Material snowMaterial;
     [SerializeField, Range(0f, 3f)] private float snowHeight = 1.69f;
-    [SerializeField] private Color snowColor = Color.white;
+    [SerializeField, ColorUsage(true, true)] private Color snowColor = Color.white;
     [SerializeField] private Color mudColor = new Color(0.47843137f, 0.31764707f, 0.078431375f, 0f);
     [SerializeField, Range(1f, 1.5f)] private float normalStrength = 1f;
     [SerializeField, Range(0f, 3f)] private float mudHeight = 1.17f;
