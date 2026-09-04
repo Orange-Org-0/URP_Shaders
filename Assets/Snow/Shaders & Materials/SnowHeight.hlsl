@@ -32,10 +32,18 @@ float CalcHeight(float2 CompTex, float NoiseStrength, float2 Ground, float uvInR
     float height = pow(Snowtrail, 0.2) * Noise * NoiseStrength * 0.1;
     height += (1.0 - Snowtrail);
     
+    GroundHeight = saturate(GroundHeight);
+    GroundHeight += 1;
+    
+    float currentHeight = height;//下一步会导致地面吃不到trail信息，这里存一下
     height = lerp(height, GroundHeight, GroundHeightStrength);
     
     height *= uvInRange;
-    height += (1.0 - uvInRange);      
+    height += (1.0 - uvInRange);   
+    
+    height *= currentHeight;
+    height = clamp(height, 0, 2);
+    
     return height;
 }
 
