@@ -88,6 +88,6 @@ Material:
     m_Colors:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _MudColor: {r: 0.47843137, g: 0.31383944, b: 0.07843137, a: 0}
-    - _SnowColor: {r: 0.73899364, g: 0.94463503, b: 1, a: 1}
+    - _SnowColor: {r: 1.0329062, g: 1.3203353, b: 1.3977201, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

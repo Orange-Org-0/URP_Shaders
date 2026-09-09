@@ -8,7 +8,6 @@ Shader "Snow_Lit"
 		[HideInInspector] _EmissionColor("Emission Color", Color) = (1,1,1,1)
 		_SnowHeight( "SnowHeight", Range( 0, 3 ) ) = 3
 		[HDR] _SnowColor( "SnowColor", Color ) = ( 0, 0, 0, 0 )
-		_MudColor( "MudColor", Color ) = ( 0, 0, 0, 0 )
 		_MudHeight( "MudHeight", Range( 0, 3 ) ) = 3
 		_NoiseScale( "NoiseScale", Range( 0, 20 ) ) = 1
 		_NoiseStrength( "NoiseStrength", Range( 0, 1.2 ) ) = 1
@@ -331,15 +330,14 @@ Shader "Snow_Lit"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _GroundHeightTex_ST;
-			float4 _MudColor;
 			float4 _SnowColor;
 			float4 _SnowNormal_ST;
 			float _NoiseScale;
 			float _NoiseStrength;
 			float _GroundStrength;
 			float _SnowHeight;
-			float _MudHeight;
 			float _NormalStrength;
+			float _MudHeight;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -672,6 +670,14 @@ Shader "Snow_Lit"
 					BitangentWS = cross(NormalWS, -TangentWS);
 				#endif
 
+				float ase_lightAtten = 0;
+				Light ase_mainLight = GetMainLight( ShadowCoord );
+				ase_lightAtten = ase_mainLight.distanceAttenuation * ase_mainLight.shadowAttenuation;
+				float3 FinalColor159 = ( _SnowColor.rgb * ase_lightAtten );
+				
+				float3 temp_output_111_0_g2 = ddx( PositionWS );
+				float3 temp_output_113_0_g2 = cross( ddy( PositionWS ) , NormalWS );
+				float dotResult115_g2 = dot( temp_output_111_0_g2 , temp_output_113_0_g2 );
 				float3 OrthCamPos102 = _OrthCamPos;
 				float3 OrthCamPos100 = OrthCamPos102;
 				float OrthCamSize24 = _OrthCamSize;
@@ -693,25 +699,16 @@ Shader "Snow_Lit"
 				float uvInRange110 = uvInRange37;
 				float localCalcHeight110 = CalcHeight( CompTex110 , NoiseStrength110 , Ground110 , uvInRange110 );
 				float Height44 = localCalcHeight110;
-				float clampResult130 = clamp( Height44 , 0.0 , 1.0 );
-				float saferPower54 = abs( ( ( Height44 / Height44 ) * clampResult130 ) );
-				float saferPower90 = abs( _MudHeight );
-				float clampResult138 = clamp( pow( saferPower54 , pow( saferPower90 , 3.0 ) ) , 0.0 , 1.0 );
-				float Snow_Mud_Factor134 = clampResult138;
-				float3 lerpResult48 = lerp( _MudColor.rgb , _SnowColor.rgb , Snow_Mud_Factor134);
-				float ase_lightAtten = 0;
-				Light ase_mainLight = GetMainLight( ShadowCoord );
-				ase_lightAtten = ase_mainLight.distanceAttenuation * ase_mainLight.shadowAttenuation;
-				float3 FinalColor159 = ( lerpResult48 * ase_lightAtten );
-				
-				float3 temp_output_111_0_g2 = ddx( PositionWS );
-				float3 temp_output_113_0_g2 = cross( ddy( PositionWS ) , NormalWS );
-				float dotResult115_g2 = dot( temp_output_111_0_g2 , temp_output_113_0_g2 );
 				float temp_output_20_0_g2 = Height44;
 				float3 normalizeResult130_g2 = normalize( ( ( abs( dotResult115_g2 ) * NormalWS ) - ( _NormalStrength * float3( 0.05,0.05,0.05 ) * sign( dotResult115_g2 ) * ( ( ddx( temp_output_20_0_g2 ) * temp_output_113_0_g2 ) + ( ddy( temp_output_20_0_g2 ) * cross( NormalWS , temp_output_111_0_g2 ) ) ) ) ) );
 				float3x3 ase_worldToTangent = float3x3( TangentWS, BitangentWS, NormalWS );
 				float3 worldToTangentDir42_g2 = mul( ase_worldToTangent, normalizeResult130_g2 );
 				float2 uv_SnowNormal = input.ase_texcoord6.xy * _SnowNormal_ST.xy + _SnowNormal_ST.zw;
+				float clampResult130 = clamp( Height44 , 0.0 , 1.0 );
+				float saferPower54 = abs( ( ( Height44 / Height44 ) * clampResult130 ) );
+				float saferPower90 = abs( _MudHeight );
+				float clampResult138 = clamp( pow( saferPower54 , pow( saferPower90 , 3.0 ) ) , 0.0 , 1.0 );
+				float Snow_Mud_Factor134 = clampResult138;
 				float3 lerpResult135 = lerp( worldToTangentDir42_g2 , UnpackNormalScale( tex2D( _SnowNormal, uv_SnowNormal ), 1.0f ) , Snow_Mud_Factor134);
 				float3 normalizeResult139 = ASESafeNormalize( lerpResult135 );
 				float3 FinalNormal162 = normalizeResult139;
@@ -1057,15 +1054,14 @@ Shader "Snow_Lit"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _GroundHeightTex_ST;
-			float4 _MudColor;
 			float4 _SnowColor;
 			float4 _SnowNormal_ST;
 			float _NoiseScale;
 			float _NoiseStrength;
 			float _GroundStrength;
 			float _SnowHeight;
-			float _MudHeight;
 			float _NormalStrength;
+			float _MudHeight;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -1450,15 +1446,14 @@ Shader "Snow_Lit"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _GroundHeightTex_ST;
-			float4 _MudColor;
 			float4 _SnowColor;
 			float4 _SnowNormal_ST;
 			float _NoiseScale;
 			float _NoiseStrength;
 			float _GroundStrength;
 			float _SnowHeight;
-			float _MudHeight;
 			float _NormalStrength;
+			float _MudHeight;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -1809,22 +1804,21 @@ Shader "Snow_Lit"
 					float4 VizUV : TEXCOORD1;
 					float4 LightCoord : TEXCOORD2;
 				#endif
-				float4 ase_texcoord3 : TEXCOORD3;
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _GroundHeightTex_ST;
-			float4 _MudColor;
 			float4 _SnowColor;
 			float4 _SnowNormal_ST;
 			float _NoiseScale;
 			float _NoiseStrength;
 			float _GroundStrength;
 			float _SnowHeight;
-			float _MudHeight;
 			float _NormalStrength;
+			float _MudHeight;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -1945,10 +1939,6 @@ Shader "Snow_Lit"
 				float3 appendResult18 = (float3(transform15.x , transform15.y , transform15.z));
 				float3 VertOffset165 = appendResult18;
 				
-				output.ase_texcoord3.xy = input.texcoord0.xy;
-				
-				//setting value to unused interpolator channels and avoid initialization warnings
-				output.ase_texcoord3.zw = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = input.positionOS.xyz;
@@ -2077,37 +2067,10 @@ Shader "Snow_Lit"
 				float3 PositionRWS = GetCameraRelativePositionWS( input.positionWS );
 				float4 ShadowCoord = shadowCoord;
 
-				float3 OrthCamPos102 = _OrthCamPos;
-				float3 OrthCamPos100 = OrthCamPos102;
-				float OrthCamSize24 = _OrthCamSize;
-				float OrthCamSize100 = OrthCamSize24;
-				float3 WorldPos100 = PositionWS;
-				float3 localCalcUV100 = CalcUV( OrthCamPos100 , OrthCamSize100 , WorldPos100 );
-				float3 break108 = localCalcUV100;
-				float2 appendResult109 = (float2(break108.x , break108.y));
-				float2 uv31 = appendResult109;
-				float simplePerlin3D65 = snoise( PositionWS*_NoiseScale );
-				simplePerlin3D65 = simplePerlin3D65*0.5 + 0.5;
-				float2 appendResult114 = (float2(tex2D( _SnowTrailTex, uv31 ).g , simplePerlin3D65));
-				float2 CompTex110 = appendResult114;
-				float NoiseStrength110 = _NoiseStrength;
-				float2 uv_GroundHeightTex = input.ase_texcoord3.xy * _GroundHeightTex_ST.xy + _GroundHeightTex_ST.zw;
-				float2 appendResult113 = (float2(tex2D( _GroundHeightTex, uv_GroundHeightTex ).r , _GroundStrength));
-				float2 Ground110 = appendResult113;
-				float uvInRange37 = break108.z;
-				float uvInRange110 = uvInRange37;
-				float localCalcHeight110 = CalcHeight( CompTex110 , NoiseStrength110 , Ground110 , uvInRange110 );
-				float Height44 = localCalcHeight110;
-				float clampResult130 = clamp( Height44 , 0.0 , 1.0 );
-				float saferPower54 = abs( ( ( Height44 / Height44 ) * clampResult130 ) );
-				float saferPower90 = abs( _MudHeight );
-				float clampResult138 = clamp( pow( saferPower54 , pow( saferPower90 , 3.0 ) ) , 0.0 , 1.0 );
-				float Snow_Mud_Factor134 = clampResult138;
-				float3 lerpResult48 = lerp( _MudColor.rgb , _SnowColor.rgb , Snow_Mud_Factor134);
 				float ase_lightAtten = 0;
 				Light ase_mainLight = GetMainLight( ShadowCoord );
 				ase_lightAtten = ase_mainLight.distanceAttenuation * ase_mainLight.shadowAttenuation;
-				float3 FinalColor159 = ( lerpResult48 * ase_lightAtten );
+				float3 FinalColor159 = ( _SnowColor.rgb * ase_lightAtten );
 				
 
 				float3 BaseColor = FinalColor159;
@@ -2201,22 +2164,21 @@ Shader "Snow_Lit"
 			{
 				float4 positionCS : SV_POSITION;
 				float3 positionWS : TEXCOORD0;
-				float4 ase_texcoord1 : TEXCOORD1;
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _GroundHeightTex_ST;
-			float4 _MudColor;
 			float4 _SnowColor;
 			float4 _SnowNormal_ST;
 			float _NoiseScale;
 			float _NoiseStrength;
 			float _GroundStrength;
 			float _SnowHeight;
-			float _MudHeight;
 			float _NormalStrength;
+			float _MudHeight;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -2337,10 +2299,6 @@ Shader "Snow_Lit"
 				float3 appendResult18 = (float3(transform15.x , transform15.y , transform15.z));
 				float3 VertOffset165 = appendResult18;
 				
-				output.ase_texcoord1.xy = input.ase_texcoord.xy;
-				
-				//setting value to unused interpolator channels and avoid initialization warnings
-				output.ase_texcoord1.zw = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = input.positionOS.xyz;
@@ -2464,37 +2422,10 @@ Shader "Snow_Lit"
 				float3 PositionRWS = GetCameraRelativePositionWS( input.positionWS );
 				float4 ShadowCoord = shadowCoord;
 
-				float3 OrthCamPos102 = _OrthCamPos;
-				float3 OrthCamPos100 = OrthCamPos102;
-				float OrthCamSize24 = _OrthCamSize;
-				float OrthCamSize100 = OrthCamSize24;
-				float3 WorldPos100 = PositionWS;
-				float3 localCalcUV100 = CalcUV( OrthCamPos100 , OrthCamSize100 , WorldPos100 );
-				float3 break108 = localCalcUV100;
-				float2 appendResult109 = (float2(break108.x , break108.y));
-				float2 uv31 = appendResult109;
-				float simplePerlin3D65 = snoise( PositionWS*_NoiseScale );
-				simplePerlin3D65 = simplePerlin3D65*0.5 + 0.5;
-				float2 appendResult114 = (float2(tex2D( _SnowTrailTex, uv31 ).g , simplePerlin3D65));
-				float2 CompTex110 = appendResult114;
-				float NoiseStrength110 = _NoiseStrength;
-				float2 uv_GroundHeightTex = input.ase_texcoord1.xy * _GroundHeightTex_ST.xy + _GroundHeightTex_ST.zw;
-				float2 appendResult113 = (float2(tex2D( _GroundHeightTex, uv_GroundHeightTex ).r , _GroundStrength));
-				float2 Ground110 = appendResult113;
-				float uvInRange37 = break108.z;
-				float uvInRange110 = uvInRange37;
-				float localCalcHeight110 = CalcHeight( CompTex110 , NoiseStrength110 , Ground110 , uvInRange110 );
-				float Height44 = localCalcHeight110;
-				float clampResult130 = clamp( Height44 , 0.0 , 1.0 );
-				float saferPower54 = abs( ( ( Height44 / Height44 ) * clampResult130 ) );
-				float saferPower90 = abs( _MudHeight );
-				float clampResult138 = clamp( pow( saferPower54 , pow( saferPower90 , 3.0 ) ) , 0.0 , 1.0 );
-				float Snow_Mud_Factor134 = clampResult138;
-				float3 lerpResult48 = lerp( _MudColor.rgb , _SnowColor.rgb , Snow_Mud_Factor134);
 				float ase_lightAtten = 0;
 				Light ase_mainLight = GetMainLight( ShadowCoord );
 				ase_lightAtten = ase_mainLight.distanceAttenuation * ase_mainLight.shadowAttenuation;
-				float3 FinalColor159 = ( lerpResult48 * ase_lightAtten );
+				float3 FinalColor159 = ( _SnowColor.rgb * ase_lightAtten );
 				
 
 				float3 BaseColor = FinalColor159;
@@ -2617,15 +2548,14 @@ Shader "Snow_Lit"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _GroundHeightTex_ST;
-			float4 _MudColor;
 			float4 _SnowColor;
 			float4 _SnowNormal_ST;
 			float _NoiseScale;
 			float _NoiseStrength;
 			float _GroundStrength;
 			float _SnowHeight;
-			float _MudHeight;
 			float _NormalStrength;
+			float _MudHeight;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -3146,15 +3076,14 @@ Shader "Snow_Lit"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _GroundHeightTex_ST;
-			float4 _MudColor;
 			float4 _SnowColor;
 			float4 _SnowNormal_ST;
 			float _NoiseScale;
 			float _NoiseStrength;
 			float _GroundStrength;
 			float _SnowHeight;
-			float _MudHeight;
 			float _NormalStrength;
+			float _MudHeight;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -3480,6 +3409,14 @@ Shader "Snow_Lit"
 					BitangentWS = cross(NormalWS, -TangentWS);
 				#endif
 
+				float ase_lightAtten = 0;
+				Light ase_mainLight = GetMainLight( ShadowCoord );
+				ase_lightAtten = ase_mainLight.distanceAttenuation * ase_mainLight.shadowAttenuation;
+				float3 FinalColor159 = ( _SnowColor.rgb * ase_lightAtten );
+				
+				float3 temp_output_111_0_g2 = ddx( PositionWS );
+				float3 temp_output_113_0_g2 = cross( ddy( PositionWS ) , NormalWS );
+				float dotResult115_g2 = dot( temp_output_111_0_g2 , temp_output_113_0_g2 );
 				float3 OrthCamPos102 = _OrthCamPos;
 				float3 OrthCamPos100 = OrthCamPos102;
 				float OrthCamSize24 = _OrthCamSize;
@@ -3501,25 +3438,16 @@ Shader "Snow_Lit"
 				float uvInRange110 = uvInRange37;
 				float localCalcHeight110 = CalcHeight( CompTex110 , NoiseStrength110 , Ground110 , uvInRange110 );
 				float Height44 = localCalcHeight110;
-				float clampResult130 = clamp( Height44 , 0.0 , 1.0 );
-				float saferPower54 = abs( ( ( Height44 / Height44 ) * clampResult130 ) );
-				float saferPower90 = abs( _MudHeight );
-				float clampResult138 = clamp( pow( saferPower54 , pow( saferPower90 , 3.0 ) ) , 0.0 , 1.0 );
-				float Snow_Mud_Factor134 = clampResult138;
-				float3 lerpResult48 = lerp( _MudColor.rgb , _SnowColor.rgb , Snow_Mud_Factor134);
-				float ase_lightAtten = 0;
-				Light ase_mainLight = GetMainLight( ShadowCoord );
-				ase_lightAtten = ase_mainLight.distanceAttenuation * ase_mainLight.shadowAttenuation;
-				float3 FinalColor159 = ( lerpResult48 * ase_lightAtten );
-				
-				float3 temp_output_111_0_g2 = ddx( PositionWS );
-				float3 temp_output_113_0_g2 = cross( ddy( PositionWS ) , NormalWS );
-				float dotResult115_g2 = dot( temp_output_111_0_g2 , temp_output_113_0_g2 );
 				float temp_output_20_0_g2 = Height44;
 				float3 normalizeResult130_g2 = normalize( ( ( abs( dotResult115_g2 ) * NormalWS ) - ( _NormalStrength * float3( 0.05,0.05,0.05 ) * sign( dotResult115_g2 ) * ( ( ddx( temp_output_20_0_g2 ) * temp_output_113_0_g2 ) + ( ddy( temp_output_20_0_g2 ) * cross( NormalWS , temp_output_111_0_g2 ) ) ) ) ) );
 				float3x3 ase_worldToTangent = float3x3( TangentWS, BitangentWS, NormalWS );
 				float3 worldToTangentDir42_g2 = mul( ase_worldToTangent, normalizeResult130_g2 );
 				float2 uv_SnowNormal = input.ase_texcoord6.xy * _SnowNormal_ST.xy + _SnowNormal_ST.zw;
+				float clampResult130 = clamp( Height44 , 0.0 , 1.0 );
+				float saferPower54 = abs( ( ( Height44 / Height44 ) * clampResult130 ) );
+				float saferPower90 = abs( _MudHeight );
+				float clampResult138 = clamp( pow( saferPower54 , pow( saferPower90 , 3.0 ) ) , 0.0 , 1.0 );
+				float Snow_Mud_Factor134 = clampResult138;
 				float3 lerpResult135 = lerp( worldToTangentDir42_g2 , UnpackNormalScale( tex2D( _SnowNormal, uv_SnowNormal ), 1.0f ) , Snow_Mud_Factor134);
 				float3 normalizeResult139 = ASESafeNormalize( lerpResult135 );
 				float3 FinalNormal162 = normalizeResult139;
@@ -3731,15 +3659,14 @@ Shader "Snow_Lit"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _GroundHeightTex_ST;
-			float4 _MudColor;
 			float4 _SnowColor;
 			float4 _SnowNormal_ST;
 			float _NoiseScale;
 			float _NoiseStrength;
 			float _GroundStrength;
 			float _SnowHeight;
-			float _MudHeight;
 			float _NormalStrength;
+			float _MudHeight;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -4096,15 +4023,14 @@ Shader "Snow_Lit"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _GroundHeightTex_ST;
-			float4 _MudColor;
 			float4 _SnowColor;
 			float4 _SnowNormal_ST;
 			float _NoiseScale;
 			float _NoiseStrength;
 			float _GroundStrength;
 			float _SnowHeight;
-			float _MudHeight;
 			float _NormalStrength;
+			float _MudHeight;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -4389,7 +4315,7 @@ Shader "Snow_Lit"
 
 /*ASEBEGIN
 Version=19904
-Node;AmplifyShaderEditor.Vector3Node, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;42;-6528,1712;Inherit;False;Global;_OrthCamPos;_OrthCamPos;1;0;Create;True;0;0;0;False;0;False;0,0,0;-3.271484,1.200001,-0.4394531;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
+Node;AmplifyShaderEditor.Vector3Node, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;42;-6528,1712;Inherit;False;Global;_OrthCamPos;_OrthCamPos;1;0;Create;True;0;0;0;False;0;False;0,0,0;-3.466797,1.200001,0.9277344;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
 Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;22;-6512,1968;Inherit;False;Global;_OrthCamSize;_OrthCamSize;2;0;Create;True;0;0;0;False;0;False;0;50;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;32;-5972,1584;Inherit;False;1522.597;735.7503;Comment;8;37;108;100;101;104;103;31;109;UV;1,1,1,1;0;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;102;-6304,1712;Inherit;False;OrthCamPos;-1;True;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
@@ -4516,7 +4442,7 @@ WireConnection;127;1;50;0
 WireConnection;130;0;50;0
 WireConnection;138;0;54;0
 WireConnection;134;0;138;0
-WireConnection;75;0;48;0
+WireConnection;75;0;52;5
 WireConnection;75;1;74;0
 WireConnection;159;0;75;0
 WireConnection;162;0;139;0
@@ -4525,4 +4451,4 @@ WireConnection;1;1;163;0
 WireConnection;1;4;43;0
 WireConnection;1;8;164;0
 ASEEND*/
-//CHKSM=C01976E3C6F350B7DC9C7F599BA5B51E13C714B0
+//CHKSM=AA9300C87B9F07C664FEDAE483EE54A8E86D16A7
