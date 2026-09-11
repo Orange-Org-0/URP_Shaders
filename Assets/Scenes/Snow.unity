@@ -287,6 +287,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!1001 &336273449
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.916087
+      objectReference: {fileID: 0}
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.804
+      objectReference: {fileID: 0}
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7022855393873707397, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_Name
+      value: namaqualand_stones_01_b_LOD0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2694950c9e7c50c4cb02850abbaa8cd2, type: 3}
 --- !u!1 &1572992698
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1572992699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -789,13 +857,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1636984778}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 7.31, y: 3, z: -2.4299998}
+  m_LocalRotation: {x: 0.2292004, y: 0, z: 0, w: 0.9733793}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 26.5, y: 0, z: 0}
 --- !u!114 &1636984781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -885,15 +953,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4762814218461680, guid: 8f49b565901da7d4cab7cb0866f79289, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.04
+      value: 8.04
       objectReference: {fileID: 0}
     - target: {fileID: 4762814218461680, guid: 8f49b565901da7d4cab7cb0866f79289, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.72
       objectReference: {fileID: 0}
     - target: {fileID: 4762814218461680, guid: 8f49b565901da7d4cab7cb0866f79289, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.44
+      value: 1.37
       objectReference: {fileID: 0}
     - target: {fileID: 4762814218461680, guid: 8f49b565901da7d4cab7cb0866f79289, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1006,17 +1074,17 @@ PrefabInstance:
     - target: {fileID: 109844321266901624, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.x
-      value: -7.8125
+      value: 9.765625
       objectReference: {fileID: 0}
     - target: {fileID: 109844321266901624, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.y
-      value: 1.2000008
+      value: 1.4200006
       objectReference: {fileID: 0}
     - target: {fileID: 109844321266901624, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.z
-      value: -4.8828125
+      value: 2.9296875
       objectReference: {fileID: 0}
     - target: {fileID: 109844321266901624, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
@@ -1046,17 +1114,17 @@ PrefabInstance:
     - target: {fileID: 460002127075086107, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.77250004
+      value: 1.725625
       objectReference: {fileID: 0}
     - target: {fileID: 460002127075086107, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.70000076
+      value: 0.7000005
       objectReference: {fileID: 0}
     - target: {fileID: 460002127075086107, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.5571876
+      value: 1.5596875
       objectReference: {fileID: 0}
     - target: {fileID: 533241649653991380, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
@@ -1073,6 +1141,456 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f49b565901da7d4cab7cb0866f79289, type: 3}
+--- !u!33 &667857917299688473
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3381516159693412036}
+  m_Mesh: {fileID: 7893039954736292909, guid: 111695824286ef547bbf3e274f763afa, type: 3}
+--- !u!33 &1516459417785539018
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8028705189399763276}
+  m_Mesh: {fileID: 4606724065402494318, guid: 111695824286ef547bbf3e274f763afa, type: 3}
+--- !u!33 &1980702151702887273
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8905516316678811551}
+  m_Mesh: {fileID: -7960121835251742517, guid: 111695824286ef547bbf3e274f763afa, type: 3}
+--- !u!23 &2118254047592291347
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8905516316678811551}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -4781140364865464885, guid: 111695824286ef547bbf3e274f763afa, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &2274454726386870291
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7210885932753066590}
+  m_Mesh: {fileID: -2947826746549029057, guid: 111695824286ef547bbf3e274f763afa, type: 3}
+--- !u!4 &2562124534074541503
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3381516159693412036}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.4289048, y: 0.018880373, z: -0.0089688795}
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7756019781883027341}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3381516159693412036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2562124534074541503}
+  - component: {fileID: 667857917299688473}
+  - component: {fileID: 6527051780972077616}
+  m_Layer: 0
+  m_Name: namaqualand_stones_01_c_LOD0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4140289799940798217 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+    type: 3}
+  m_PrefabInstance: {fileID: 6241455514638358328}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4210006184286351616
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8905516316678811551}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.028067123, y: 0.033485256, z: 0.0044286707}
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7756019781883027341}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &5911204383260778354
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8028705189399763276}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.9038661, y: 0.015571349, z: 0.004125711}
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7756019781883027341}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &6241455514638358328
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7756019781883027341}
+    m_Modifications:
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.676232
+      objectReference: {fileID: 0}
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.038534276
+      objectReference: {fileID: 0}
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0023105158
+      objectReference: {fileID: 0}
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 156153189745346261, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7022855393873707397, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_Name
+      value: namaqualand_stones_01_b_LOD0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2694950c9e7c50c4cb02850abbaa8cd2, type: 3}
+--- !u!23 &6527051780972077616
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3381516159693412036}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -4781140364865464885, guid: 111695824286ef547bbf3e274f763afa, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &6983176789278983479
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7756019781883027341}
+  m_Layer: 0
+  m_Name: namaqualand_stones_01_4k
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &7123820776073308555
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8028705189399763276}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -4781140364865464885, guid: 111695824286ef547bbf3e274f763afa, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7210885932753066590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8853197748449340843}
+  - component: {fileID: 2274454726386870291}
+  - component: {fileID: 7705463907902423447}
+  m_Layer: 0
+  m_Name: namaqualand_stones_01_d_LOD0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &7705463907902423447
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7210885932753066590}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -4781140364865464885, guid: 111695824286ef547bbf3e274f763afa, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!4 &7756019781883027341
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6983176789278983479}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.926155, y: 3.49, z: 5.327765}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5911204383260778354}
+  - {fileID: 4140289799940798217}
+  - {fileID: 2562124534074541503}
+  - {fileID: 8853197748449340843}
+  - {fileID: 4210006184286351616}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8028705189399763276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5911204383260778354}
+  - component: {fileID: 1516459417785539018}
+  - component: {fileID: 7123820776073308555}
+  m_Layer: 0
+  m_Name: namaqualand_stones_01_a_LOD0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8853197748449340843
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7210885932753066590}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.20543258, y: 0.017027102, z: 0.0028265656}
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7756019781883027341}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8905516316678811551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4210006184286351616}
+  - component: {fileID: 1980702151702887273}
+  - component: {fileID: 2118254047592291347}
+  m_Layer: 0
+  m_Name: namaqualand_stones_01_e_LOD0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1084,3 +1602,5 @@ SceneRoots:
   - {fileID: 84600005}
   - {fileID: 1955165269}
   - {fileID: 1756374030}
+  - {fileID: 7756019781883027341}
+  - {fileID: 336273449}
