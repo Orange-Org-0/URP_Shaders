@@ -43,10 +43,10 @@ public class InteractiveControl_Snow : MonoBehaviour
 
     private void Update()
     {
-        if (Application.isPlaying && IsPlayerLayer)
-        {
-            UpdateMovement();
-        }
+        //if (Application.isPlaying && IsPlayerLayer)
+        //{
+        //    UpdateMovement();
+        //}
 
         UpdateSpeed();
         if (snowController != null)

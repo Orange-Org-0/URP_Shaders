@@ -3,7 +3,7 @@ using UnityEngine.Serialization;
 using UnityEngine.VFX;
 
 [ExecuteAlways]
-public class InteractiveControl : MonoBehaviour
+public class InteractiveControl_Water : MonoBehaviour
 {
     private const string PlayerLayerName = "Player";
 
@@ -50,7 +50,7 @@ public class InteractiveControl : MonoBehaviour
         {
             UpdateMovement();
         }
-        if(rigidbody_Player == null)
+        if (rigidbody_Player == null)
         {
             rigidbody_Player = GetComponentInChildren<Rigidbody>(true);
         }
