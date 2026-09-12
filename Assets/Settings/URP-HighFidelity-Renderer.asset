@@ -57,7 +57,7 @@ MonoBehaviour:
   accumulationShader: {fileID: 4800000, guid: 4adc356cc3a86db419027bf7d799d25b, type: 3}
   blurShader: {fileID: 4800000, guid: a2e660f9435f4c8a950e2c45461385ed, type: 3}
   blurIterations: 2
-  blurRadius: 1.08
+  blurRadius: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

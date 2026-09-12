@@ -45,7 +45,7 @@ Use the YouTube video and any other materials provided by the user as visual ref
 Additional reference materials provided by the user may be placed in the following folder:
 
 ```text
-E:\UnityHub\URP_Shader\Assets\Anime_Tree\References
+E:\UnityHub\URP_Shaders\Assets\Anime_Tree\References
 ```
 
 Reference materials may include:
@@ -130,7 +130,7 @@ Assets/AnimeTree/
 Experimental files should be kept separate from production-ready files:
 
 ```text
-E:\UnityHub\URP_Shader\Assets\Anime_Tree\Experiments\
+E:\UnityHub\URP_Shaders\Assets\Anime_Tree\Experiments\
 ```
 
 Do not treat experimental code or assets as production-ready content without clearly stating their experimental status.

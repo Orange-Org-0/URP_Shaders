@@ -56,7 +56,7 @@ public class SnowController : MonoBehaviour
     [SerializeField] private bool receiveShadows;
 
     private Camera trailCamera;
-    private VisualEffect snowTrail;
+    private VisualEffect[] snowEffects = System.Array.Empty<VisualEffect>();
     private float playerSpeed;
 
     public float SnowHeight
@@ -70,9 +70,12 @@ public class SnowController : MonoBehaviour
     }
 
     public void SetReferences(Camera camera, VisualEffect effect)
+        => SetReferences(camera, new[] { effect });
+
+    public void SetReferences(Camera camera, VisualEffect[] effects)
     {
         trailCamera = camera;
-        snowTrail = effect;
+        snowEffects = effects ?? System.Array.Empty<VisualEffect>();
         ApplyParameters();
     }
 
@@ -147,25 +150,34 @@ public class SnowController : MonoBehaviour
 
     private void SetVFXFloat(string name, float value)
     {
-        if (snowTrail != null && snowTrail.HasFloat(name))
+        foreach (VisualEffect effect in snowEffects)
         {
-            snowTrail.SetFloat(name, value);
+            if (effect != null && effect.HasFloat(name))
+            {
+                effect.SetFloat(name, value);
+            }
         }
     }
 
     private void SetVFXVector3(string name, Vector3 value)
     {
-        if (snowTrail != null && snowTrail.HasVector3(name))
+        foreach (VisualEffect effect in snowEffects)
         {
-            snowTrail.SetVector3(name, value);
+            if (effect != null && effect.HasVector3(name))
+            {
+                effect.SetVector3(name, value);
+            }
         }
     }
 
     private void SetVFXTexture(string name, Texture value)
     {
-        if (snowTrail != null && snowTrail.HasTexture(name))
+        foreach (VisualEffect effect in snowEffects)
         {
-            snowTrail.SetTexture(name, value);
+            if (effect != null && effect.HasTexture(name))
+            {
+                effect.SetTexture(name, value);
+            }
         }
     }
 

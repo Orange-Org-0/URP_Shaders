@@ -1607,7 +1607,7 @@ MonoBehaviour:
         m_SerializableType: UnityEditor.VFX.DirectionType, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       m_SerializableObject: '{"direction":{"x":-1.0,"y":0.0,"z":0.0}}'
-    m_Space: 1
+    m_Space: 0
   m_Property:
     name: AxisX
     m_serializedType:
@@ -2134,7 +2134,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.4
+      m_SerializableObject: 0.406
     m_Space: -1
   m_Property:
     name: _RimWidth
@@ -3140,7 +3140,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.5
+      m_SerializableObject: 0.7
     m_Space: -1
   m_Property:
     name: Size
@@ -3378,7 +3378,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 1.271
+      m_SerializableObject: 1.125
     m_Space: -1
   m_Property:
     name: _Width_Height_ratio

@@ -71,11 +71,12 @@ Material:
     - _1: 8.36
     - _AlphaCutoff: 0.5
     - _EnvironmentReflections: 0
-    - _Float0: 0.5
+    - _Float0: 1.24
+    - _Float1: 4.51
     - _Float4: 0
     - _Float6: 0.52
     - _Float8: 14.01
-    - _GroundStrength: 0.526
+    - _GroundStrength: 1
     - _MudHeight: 1.43
     - _NoiseScale: 2.4
     - _NoiseStrength: 0.92
@@ -84,7 +85,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 0
-    - _SnowHeight: 1.19
+    - _SnowHeight: 1.1
     - _SpecularHighlights: 0
     - _TessMax: 60
     - _TessMin: 0.1

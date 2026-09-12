@@ -11,7 +11,7 @@ UnitySkills 是一套通过本地 REST 服务自动化 Unity Editor 的工具，
 | UnitySkills 服务 | 正常运行 |
 | UnitySkills 版本 | 2.2.1 |
 | Unity 版本 | 2022.3.62f2 |
-| 当前项目 | URP_Shader |
+| 当前项目 | URP_Shaders |
 | 渲染管线 | Universal Render Pipeline（URP） |
 | 权限模式 | Auto |
 | 编译与域重载 | 检查时均处于空闲状态 |

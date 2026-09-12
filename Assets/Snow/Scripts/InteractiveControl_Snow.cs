@@ -16,10 +16,9 @@ public class InteractiveControl_Snow : MonoBehaviour
     [SerializeField]
     public Camera trailCam; 
 
-    [Header("SnowTrail")]
-    [FormerlySerializedAs("SnowTrail")]
+    [Header("Snow Effects")]
     [SerializeField]
-    private VisualEffect SnowTrail;
+    private VisualEffect[] snowEffects = System.Array.Empty<VisualEffect>();
 
     [FormerlySerializedAs("speed")]
     [SerializeField]
@@ -132,9 +131,6 @@ public class InteractiveControl_Snow : MonoBehaviour
             : 0f;
         lastFramePos = transform.position;
     }
-
-
-
     private void RegisterSnowController()
     {
         if (snowController == null)
@@ -142,6 +138,6 @@ public class InteractiveControl_Snow : MonoBehaviour
             return;
         }
 
-        snowController.SetReferences(trailCam, SnowTrail);
+        snowController.SetReferences(trailCam, snowEffects);
     }
 }
