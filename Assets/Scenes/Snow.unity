@@ -1217,7 +1217,7 @@ PrefabInstance:
     - target: {fileID: 109844321266901624, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.x
-      value: -4.638672
+      value: -4.0039062
       objectReference: {fileID: 0}
     - target: {fileID: 109844321266901624, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
@@ -1227,7 +1227,7 @@ PrefabInstance:
     - target: {fileID: 109844321266901624, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.z
-      value: -13.623047
+      value: -14.013672
       objectReference: {fileID: 0}
     - target: {fileID: 193260355541043425, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
@@ -1247,12 +1247,12 @@ PrefabInstance:
     - target: {fileID: 460002127075086107, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.04451073
+      value: 0.7340875
       objectReference: {fileID: 0}
     - target: {fileID: 460002127075086107, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.01606037
+      value: -0.29890156
       objectReference: {fileID: 0}
     - target: {fileID: 460002127075086107, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
@@ -1282,7 +1282,7 @@ PrefabInstance:
     - target: {fileID: 2057724550616116637, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: snowEffects.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2057724550616116637, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
@@ -1292,6 +1292,11 @@ PrefabInstance:
     - target: {fileID: 2057724550616116637, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: 'snowEffects.Array.data[1]'
+      value: 
+      objectReference: {fileID: 283512782}
+    - target: {fileID: 2057724550616116637, guid: 8f49b565901da7d4cab7cb0866f79289,
+        type: 3}
+      propertyPath: 'snowEffects.Array.data[2]'
       value: 
       objectReference: {fileID: 283512782}
     - target: {fileID: 2155091702758472692, guid: 8f49b565901da7d4cab7cb0866f79289,
@@ -1309,6 +1314,41 @@ PrefabInstance:
       propertyPath: snowSplashEffect
       value: 
       objectReference: {fileID: 283512782}
+    - target: {fileID: 3200503093241434732, guid: 8f49b565901da7d4cab7cb0866f79289,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200503093241434732, guid: 8f49b565901da7d4cab7cb0866f79289,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.091
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200503093241434732, guid: 8f49b565901da7d4cab7cb0866f79289,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200503093241434732, guid: 8f49b565901da7d4cab7cb0866f79289,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200503093241434732, guid: 8f49b565901da7d4cab7cb0866f79289,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200503093241434732, guid: 8f49b565901da7d4cab7cb0866f79289,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200503093241434732, guid: 8f49b565901da7d4cab7cb0866f79289,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3212247701157527342, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_Name
@@ -1332,7 +1372,7 @@ PrefabInstance:
     - target: {fileID: 5322959733370682262, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.817
+      value: 0.301
       objectReference: {fileID: 0}
     - target: {fileID: 7460787670476733419, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
@@ -1352,7 +1392,7 @@ PrefabInstance:
     - target: {fileID: 7460787670476733419, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.x
-      value: -4.638672
+      value: -4.0039062
       objectReference: {fileID: 0}
     - target: {fileID: 7460787670476733419, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
@@ -1362,7 +1402,7 @@ PrefabInstance:
     - target: {fileID: 7460787670476733419, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.z
-      value: -13.623047
+      value: -14.013672
       objectReference: {fileID: 0}
     - target: {fileID: 8515481323192943259, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
@@ -2417,6 +2457,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1572992704}
+  - {fileID: 1018699943}
   - {fileID: 1636984780}
   - {fileID: 152439180}
   - {fileID: 1530121685}
@@ -2426,4 +2467,3 @@ SceneRoots:
   - {fileID: 7756019781883027341}
   - {fileID: 336273449}
   - {fileID: 179851532}
-  - {fileID: 1018699943}
