@@ -5969,7 +5969,7 @@ MonoBehaviour:
   m_ShaderFile: {fileID: 10900000, guid: daf191b03667517419659807f850681c, type: 3}
   m_AvailableFunctions:
     selection: CalcHeight
-    selectedIndex: 2
+    selectedIndex: 3
 --- !u!114 &8926484042661615241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6926,7 +6926,7 @@ MonoBehaviour:
   m_ShaderFile: {fileID: 10900000, guid: daf191b03667517419659807f850681c, type: 3}
   m_AvailableFunctions:
     selection: CalcSnowHeight
-    selectedIndex: 3
+    selectedIndex: 4
 --- !u!114 &8926484042661615293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9177,7 +9177,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 956, y: 2215}
+  m_UIPosition: {x: 956, y: 2255}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:

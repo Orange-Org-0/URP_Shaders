@@ -17,6 +17,19 @@ public sealed class TrailCameraController : MonoBehaviour
     private Camera trailCamera;
 
 
+    private void FollowParentXZ()
+    {
+        Transform parent = transform.parent;
+        if (parent == null)
+        {
+            return;
+        }
+
+        Vector3 position = transform.position;
+        position.x = parent.position.x;
+        position.z = parent.position.z;
+        transform.position = position;
+    }
 
     private void FaceWorldDown()
     {
@@ -124,14 +137,15 @@ public sealed class TrailCameraController : MonoBehaviour
     private void OnEnable()
     {
         trailCamera = GetComponent<Camera>();
+        FollowParentXZ();
         FaceWorldDown();
         SnapToTexelGrid();
         PublishShaderGlobals();
-        FaceWorldDown();
     }
 
     private void LateUpdate()
     {
+        FollowParentXZ();
         FaceWorldDown();
         SnapToTexelGrid();
         PublishShaderGlobals();
@@ -139,6 +153,7 @@ public sealed class TrailCameraController : MonoBehaviour
 
     private void OnValidate()
     {
+        FollowParentXZ();
         FaceWorldDown();
         SnapToTexelGrid();  // ������Һ������� RT ��������
         PublishShaderGlobals();
