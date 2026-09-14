@@ -14,6 +14,7 @@ public class SnowController : MonoBehaviour
     private static readonly int NoiseStrengthId = Shader.PropertyToID("_NoiseStrength");
     private static readonly int GroundHeightTexId = Shader.PropertyToID("_GroundHeightTex");
     private static readonly int GroundStrengthId = Shader.PropertyToID("_GroundStrength");
+    private static readonly int GroundScaleId = Shader.PropertyToID("_GroundScale");
     private static readonly int TessValueId = Shader.PropertyToID("_TessValue");
     private static readonly int TessMinId = Shader.PropertyToID("_TessMin");
     private static readonly int TessMaxId = Shader.PropertyToID("_TessMax");
@@ -31,6 +32,7 @@ public class SnowController : MonoBehaviour
     private const string SnowTrailTexName = "SnowtrailTex";
     private const string GroundHeightTexName = "GroundHeightTex";
     private const string GroundHeightStrengthName = "GroundHeightStrength";
+    private const string GroundScaleName = "GroundScale";
 
     [Header("Snow Material")]
     [FormerlySerializedAs("SnowMaterial")]
@@ -44,6 +46,7 @@ public class SnowController : MonoBehaviour
     [SerializeField, Range(0f, 1.2f)] private float noiseStrength = 0.92f;
     [SerializeField] private Texture2D groundHeightTex;
     [SerializeField, Range(0f, 1f)] private float groundStrength;
+    [SerializeField] private float groundScale = 1f;
 
     [Header("Tessellation")]
     [SerializeField, Range(1f, 32f)] private float tessValue = 19.5f;
@@ -117,6 +120,7 @@ public class SnowController : MonoBehaviour
         snowMaterial.SetFloat(NoiseStrengthId, noiseStrength);
         snowMaterial.SetTexture(GroundHeightTexId, groundHeightTex);
         snowMaterial.SetFloat(GroundStrengthId, groundStrength);
+        snowMaterial.SetFloat(GroundScaleId, groundScale);
         snowMaterial.SetFloat(TessValueId, tessValue);
         snowMaterial.SetFloat(TessMinId, tessMin);
         snowMaterial.SetFloat(TessMaxId, tessMax);
@@ -146,6 +150,7 @@ public class SnowController : MonoBehaviour
         }
         SetVFXTexture(GroundHeightTexName, groundHeightTex);
         SetVFXFloat(GroundHeightStrengthName, groundStrength);
+        SetVFXFloat(GroundScaleName, groundScale);
     }
 
     private void SetVFXFloat(string name, float value)
