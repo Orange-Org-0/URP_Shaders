@@ -381,7 +381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snowMaterial: {fileID: 2100000, guid: 67737f8d38500ed49855d963dc6e828b, type: 2}
   snowHeight: 0.87
-  snowColor: {r: 0.5535207, g: 0.7075501, b: 0.7490196, a: 1}
+  snowColor: {r: 1, g: 1, b: 1, a: 1}
   mudColor: {r: 0.47843137, g: 0.31383944, b: 0.07843137, a: 0}
   normalStrength: 1
   mudHeight: 1.43
@@ -710,6 +710,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: namaqualand_stones_01_b_LOD0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7022855393873707397, guid: 2694950c9e7c50c4cb02850abbaa8cd2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1419,7 +1424,7 @@ PrefabInstance:
     - target: {fileID: 1656895515894632495, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2057724550616116637, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
@@ -1699,7 +1704,7 @@ PrefabInstance:
     - target: {fileID: 8161997190423313642, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8663826149703168154, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
@@ -3143,13 +3148,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1636984778}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.027671358, y: -0.1263333, z: 0.06746191, w: 0.98930436}
+  m_LocalRotation: {x: 0.13011031, y: -0.13545914, z: 0.0464988, w: 0.98110145}
   m_LocalPosition: {x: -3.48, y: 2.01, z: -14.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -2.161, y: -14.707, z: 8.081}
+  m_LocalEulerAnglesHint: {x: 15.539, y: -15.267, z: 3.332}
 --- !u!114 &1636984781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3195,7 +3200,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1756374029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3766,7 +3771,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &7123820776073308555
 MeshRenderer:
   m_ObjectHideFlags: 0
