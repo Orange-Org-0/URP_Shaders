@@ -6,6 +6,8 @@ using UnityEngine.VFX;
 public class InteractiveControl_Snow : MonoBehaviour
 {
     private const string PlayerLayerName = "Player";
+    private const float SnowMinY = -0.5f;
+    private const float SnowMaxY = 0.55f;
 
     [Header("Movement")]
     [SerializeField, Min(0f)]
@@ -51,6 +53,8 @@ public class InteractiveControl_Snow : MonoBehaviour
         if (snowController != null)
         {
             snowController.SetPlayerSpeed(currentSpeed);
+            snowController.SetIsOnSnow(transform.position.y >= SnowMinY
+                && transform.position.y <= SnowMaxY);
         }
     }
 

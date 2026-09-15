@@ -78,14 +78,15 @@ Material:
     - _1: 8.36
     - _AlphaCutoff: 0.5
     - _EnvironmentReflections: 0
-    - _Float0: 1.24
-    - _Float1: 4.51
-    - _Float2: 0.54
+    - _Float0: 1
+    - _Float1: -0.181
+    - _Float2: 1
     - _Float4: 0
+    - _Float5: 0.53
     - _Float6: 0.52
     - _Float8: 14.01
-    - _GroundScale: 1
-    - _GroundStrength: 0.69
+    - _GroundScale: 0.87
+    - _GroundStrength: 1
     - _MudHeight: 1.43
     - _NoiseScale: 2.4
     - _NoiseStrength: 0.92
@@ -95,14 +96,14 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _SnowHeight: 0.87
-    - _SparkleIntensity: 1
+    - _SparkleIntensity: 2.09
     - _SparkleScale: 0.73
     - _SpecularHighlights: 0
     - _TessMax: 60
     - _TessMin: 0.1
     - _TessValue: 19.5
-    - _TrailSideIntensity: 0.397
-    - _TrailSideScale: 1.9
+    - _TrailSideIntensity: 0.43
+    - _TrailSideScale: 1
     - _TransAmbient: 0.1
     - _TransDirect: 0.9
     - _TransNormal: 0.5
@@ -113,6 +114,6 @@ Material:
     m_Colors:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _MudColor: {r: 0.47843137, g: 0.31383944, b: 0.07843137, a: 0}
-    - _SnowColor: {r: 1.032906, g: 1.3203351, b: 1.39772, a: 1}
+    - _SnowColor: {r: 0.5535207, g: 0.7075501, b: 0.7490196, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

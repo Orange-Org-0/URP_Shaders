@@ -26,6 +26,7 @@ public class SnowController : MonoBehaviour
     private static readonly int OrthCamSizeId = Shader.PropertyToID("_OrthCamSize");
 
     private const string PlayerSpeedName = "PlayerSpeed";
+    private const string IsOnSnowName = "IsOnSnow";
     private const string OrthCamPosName = "OrthCamPos";
     private const string OrthCamSizeName = "OrthCamSize";
     private const string SnowHeightName = "SnowHeight";
@@ -61,6 +62,7 @@ public class SnowController : MonoBehaviour
     private Camera trailCamera;
     private VisualEffect[] snowEffects = System.Array.Empty<VisualEffect>();
     private float playerSpeed;
+    private bool isOnSnow;
 
     public float SnowHeight
     {
@@ -83,6 +85,8 @@ public class SnowController : MonoBehaviour
     }
 
     public void SetPlayerSpeed(float speed) => playerSpeed = Mathf.Max(0f, speed);
+
+    public void SetIsOnSnow(bool value) => isOnSnow = value;
 
     private void OnEnable() => ApplyParameters();
 
@@ -143,6 +147,7 @@ public class SnowController : MonoBehaviour
         }
 
         SetVFXFloat(PlayerSpeedName, playerSpeed);
+        SetVFXBool(IsOnSnowName, isOnSnow);
         SetVFXFloat(SnowHeightName, snowHeight);
         if (snowTrailTex != null)
         {
@@ -160,6 +165,17 @@ public class SnowController : MonoBehaviour
             if (effect != null && effect.HasFloat(name))
             {
                 effect.SetFloat(name, value);
+            }
+        }
+    }
+
+    private void SetVFXBool(string name, bool value)
+    {
+        foreach (VisualEffect effect in snowEffects)
+        {
+            if (effect != null && effect.HasBool(name))
+            {
+                effect.SetBool(name, value);
             }
         }
     }
