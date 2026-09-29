@@ -78,9 +78,9 @@ MonoBehaviour:
   categories: []
   uiBounds:
     serializedVersion: 2
-    x: -6186
+    x: -6187
     y: -331
-    width: 8479
+    width: 8480
     height: 3428
 --- !u!114 &114350483966674976
 MonoBehaviour:
@@ -1076,7 +1076,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: True
+      m_SerializableObject: False
     m_Space: -1
   m_Property:
     name: _vfx_enabled
