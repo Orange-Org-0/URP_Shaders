@@ -1440,6 +1440,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3249827386704156854, guid: 8f49b565901da7d4cab7cb0866f79289,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3398687985513999656, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_PropertySheet.m_Bool.m_Array.Array.size
@@ -1508,7 +1513,7 @@ PrefabInstance:
     - target: {fileID: 4729383023604739111, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5582669810388109428, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
@@ -1702,13 +1707,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8472459069927308202, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8472459069927308202, guid: 8f49b565901da7d4cab7cb0866f79289,
+        type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.771
+      value: 0.305
       objectReference: {fileID: 0}
     - target: {fileID: 8663826149703168154, guid: 8f49b565901da7d4cab7cb0866f79289,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

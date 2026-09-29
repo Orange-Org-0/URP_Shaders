@@ -1,3 +1,4 @@
+using StarterAssets;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.VFX;
@@ -6,21 +7,25 @@ using UnityEngine.VFX;
 public class InteractiveControl_Snow : MonoBehaviour
 {
     private const string PlayerLayerName = "Player";
+    private const string LandingEventName = "OnLanding";
     private const float SnowMinY = -0.5f;
     private const float SnowMaxY = 0.55f;
 
-    [Header("Movement")]
-    [SerializeField, Min(0f)]
-    [Tooltip("Player movement speed in world units per second.")]
-    private float moveSpeed = 5f;
-
     [Header("TrailCam")]
     [SerializeField]
-    public Camera trailCam; 
+    public Camera trailCam;
 
     [Header("Snow Effects")]
     [SerializeField]
     private VisualEffect[] snowEffects = System.Array.Empty<VisualEffect>();
+
+    [Header("Landing Splash")]
+    [SerializeField]
+    private VisualEffect snowSplashEffect;
+
+    [SerializeField, Min(0f)]
+    [Tooltip("Minimum downward speed required to trigger the landing splash.")]
+    private float minimumLandingSpeed = 0.5f;
 
     [FormerlySerializedAs("speed")]
     [SerializeField]
@@ -29,6 +34,10 @@ public class InteractiveControl_Snow : MonoBehaviour
     private Vector3 lastFramePos;
     private int playerLayer;
     private SnowController snowController;
+    private ThirdPersonController playerController;
+    private float lastLandingSampleY;
+    private float peakDownwardSpeed;
+    private bool wasGrounded;
 
     public float CurrentSpeed => currentSpeed;
     private bool IsPlayerLayer => playerLayer >= 0 && gameObject.layer == playerLayer;
@@ -37,31 +46,68 @@ public class InteractiveControl_Snow : MonoBehaviour
     {
         playerLayer = LayerMask.NameToLayer(PlayerLayerName);
         snowController = FindFirstObjectByType<SnowController>();
+        playerController = GetComponentInParent<ThirdPersonController>();
         lastFramePos = transform.position;
+
+        if (playerController != null)
+        {
+            wasGrounded = playerController.Grounded;
+            lastLandingSampleY = playerController.transform.position.y;
+        }
+
         ApplyPlayerCollisionConstraints();
         RegisterSnowController();
     }
 
     private void Update()
     {
-        //if (Application.isPlaying && IsPlayerLayer)
-        //{
-        //    UpdateMovement();
-        //}
-
         UpdateSpeed();
         if (snowController != null)
         {
             snowController.SetPlayerSpeed(currentSpeed);
-            snowController.SetIsOnSnow(transform.position.y >= SnowMinY
-                && transform.position.y <= SnowMaxY);
+            snowController.SetIsOnSnow(IsOnSnow());
         }
     }
 
     private void OnValidate()
     {
         playerLayer = LayerMask.NameToLayer(PlayerLayerName);
-        moveSpeed = Mathf.Max(0f, moveSpeed);
+        minimumLandingSpeed = Mathf.Max(0f, minimumLandingSpeed);
+    }
+
+    private void LateUpdate()
+    {
+        if (!Application.isPlaying || playerController == null)
+        {
+            return;
+        }
+
+        float currentY = playerController.transform.position.y;
+        float verticalSpeed = Time.deltaTime > Mathf.Epsilon
+            ? (currentY - lastLandingSampleY) / Time.deltaTime
+            : 0f;
+
+        if (!playerController.Grounded && verticalSpeed < 0f)
+        {
+            peakDownwardSpeed = Mathf.Max(peakDownwardSpeed, -verticalSpeed);
+        }
+
+        if (!wasGrounded && playerController.Grounded)
+        {
+            if (peakDownwardSpeed >= minimumLandingSpeed && IsOnSnow())
+            {
+                snowSplashEffect?.SendEvent(LandingEventName);
+            }
+
+            peakDownwardSpeed = 0f;
+        }
+        else if (wasGrounded && !playerController.Grounded)
+        {
+            peakDownwardSpeed = 0f;
+        }
+
+        wasGrounded = playerController.Grounded;
+        lastLandingSampleY = currentY;
     }
 
     private void OnTransformChildrenChanged()
@@ -87,46 +133,6 @@ public class InteractiveControl_Snow : MonoBehaviour
         }
     }
 
-    private void UpdateMovement()
-    {
-        Vector3 direction = Vector3.zero;
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            direction += Vector3.forward;
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            direction += Vector3.back;
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            direction += Vector3.right;
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            direction += Vector3.left;
-        }
-
-        if (Input.GetKey(KeyCode.E))
-        {
-            direction += Vector3.up;
-        }
-
-        if (Input.GetKey(KeyCode.Q))
-        {
-            direction += Vector3.down;
-        }
-
-        if (direction.sqrMagnitude > 0f)
-        {
-            transform.position += direction.normalized * (moveSpeed * Time.deltaTime);
-        }
-    }
-
     private void UpdateSpeed()
     {
         float deltaTime = Time.deltaTime;
@@ -135,6 +141,10 @@ public class InteractiveControl_Snow : MonoBehaviour
             : 0f;
         lastFramePos = transform.position;
     }
+
+    private bool IsOnSnow()
+        => transform.position.y >= SnowMinY && transform.position.y <= SnowMaxY;
+
     private void RegisterSnowController()
     {
         if (snowController == null)

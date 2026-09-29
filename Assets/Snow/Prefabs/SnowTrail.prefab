@@ -165,13 +165,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c490e943c52b81439e5f6a84db9ee85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
   trailCam: {fileID: 533241649653991380}
   snowEffects:
   - {fileID: 3398687985513999656}
   - {fileID: 909805677721206203}
   - {fileID: 5582669810388109428}
   - {fileID: 7366323766128289671}
+  snowSplashEffect: {fileID: 5582669810388109428}
+  minimumLandingSpeed: 0.5
   currentSpeed: 0
 --- !u!1 &3249827386704156854
 GameObject:
@@ -457,7 +458,7 @@ Transform:
   m_GameObject: {fileID: 8161997190423313642}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.009, y: 0.82, z: 0.058}
+  m_LocalPosition: {x: -0.009, y: 0, z: 0.058}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -542,8 +543,8 @@ VFXRenderer:
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 0
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 2
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
@@ -683,7 +684,7 @@ VFXRenderer:
   m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
+  m_ReflectionProbeUsage: 2
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
